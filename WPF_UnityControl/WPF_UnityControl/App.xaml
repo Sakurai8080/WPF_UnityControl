@@ -1,9 +1,10 @@
-﻿<Application x:Class="WPF_UnityControl.App"
+﻿<prism:PrismApplication x:Class="WPF_UnityControl.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:WPF_UnityControl"
              StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>
+    <prism:PrismApplication.Resources>
+
+    </prism:PrismApplication.Resources>
+</prism:PrismApplication>
