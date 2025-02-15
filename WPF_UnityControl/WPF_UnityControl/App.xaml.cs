@@ -3,6 +3,7 @@ using System.Data;
 using Prism.Unity;
 using Prism.Ioc;
 using System.Windows;
+using WPF_UnityControl.Views;
 
 namespace WPF_UnityControl;
 
