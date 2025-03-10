@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_UnityControl.Controls
+namespace WPF_UnityControl.Control
 {
     /// <summary>
     /// FileHandlerControl.xaml の相互作用ロジック
