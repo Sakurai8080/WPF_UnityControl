@@ -8,15 +8,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="600"
     d:DesignWidth="250"
-    Background="{StaticResource AppBaseColor}"
+    Background="#FF131B1F"
     mc:Ignorable="d">
 
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+            <Setter Property="Height" Value="50" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <StackPanel Margin="10">
+        <StackPanel Margin="10,30,10,10">
             <Image
                 x:Name="imUnityLogo"
                 Height="45"
-                HorizontalAlignment="Left"
+                HorizontalAlignment="Center"
                 Source="/Resources/Logo.png" />
             <Button
                 x:Name="btConnect"
@@ -57,36 +63,7 @@
                 Click="btFetchScene_Click"
                 Content="クリア" />
 
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Click="btFetchScene_Click"
-                Content="シーン一覧取得" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Click="btFetchScene_Click"
-                Content="シーン一覧取得" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Click="btFetchScene_Click"
-                Content="シーン一覧取得" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Click="btFetchScene_Click"
-                Content="シーン一覧取得" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Click="btFetchScene_Click"
-                Content="シーン一覧取得" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Click="btFetchScene_Click"
-                Content="シーン一覧取得" />
+
         </StackPanel>
     </Grid>
 </UserControl>
