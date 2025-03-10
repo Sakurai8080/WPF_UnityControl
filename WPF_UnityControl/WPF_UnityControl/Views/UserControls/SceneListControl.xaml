@@ -25,7 +25,7 @@
 
         <Grid Grid.Row="1">
             <Border
-                Background="{DynamicResource AppBackGround}"
+                Background="Black"
                 BorderBrush="{StaticResource 700Blush}"
                 BorderThickness="0.8" />
             <ListView
