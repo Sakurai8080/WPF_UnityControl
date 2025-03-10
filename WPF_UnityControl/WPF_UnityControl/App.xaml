@@ -1,9 +1,91 @@
-﻿<Application x:Class="WPF_UnityControl.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WPF_UnityControl"
-             StartupUri="MainWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>
+﻿<prism:PrismApplication
+    x:Class="WPF_UnityControl.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPF_UnityControl"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:prism="http://prismlibrary.com/">
+
+    <prism:PrismApplication.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--#region MaterialDesign ベースカラー-->
+                <materialDesign:MahAppsBundledTheme
+                    BaseTheme="Dark"
+                    PrimaryColor="BlueGrey"
+                    SecondaryColor="Teal " />
+
+                <!--  Material Design デフォルトコントロールスタイル  -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml" />
+                <!--  Material Design カスタム色  -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="50Blush" Color="{DynamicResource Primary50}" />
+            <SolidColorBrush x:Key="100Blush" Color="{DynamicResource Primary100}" />
+            <SolidColorBrush x:Key="200Blush" Color="{DynamicResource Primary200}" />
+            <SolidColorBrush x:Key="300Blush" Color="{DynamicResource Primary300}" />
+            <SolidColorBrush x:Key="400Blush" Color="{DynamicResource Primary400}" />
+            <SolidColorBrush x:Key="500Blush" Color="{DynamicResource Primary500}" />
+            <SolidColorBrush x:Key="600Blush" Color="{DynamicResource Primary600}" />
+            <SolidColorBrush x:Key="700Blush" Color="{DynamicResource Primary700}" />
+            <SolidColorBrush x:Key="800Blush" Color="{DynamicResource Primary800}" />
+            <SolidColorBrush x:Key="900Blush" Color="{DynamicResource Primary900}" />
+
+            <SolidColorBrush x:Key="AppBaseColor" Color="#FF131B1F" />
+            <SolidColorBrush x:Key="AppBackGround" Color="#FF1B1B1B" />
+            <!--#endregion-->
+
+            <!--  region マテリアルデザイン PackIcon  -->
+            <Style TargetType="materialDesign:PackIcon">
+                <Setter Property="Foreground" Value="{StaticResource 200Blush}" />
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+            </Style>
+            <!--#endregion-->
+
+
+            <!--  region アプリ内コントロール定義  -->
+            <!--  region Label  -->
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <!--  region TextBlock  -->
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+            <!--#endregion-->
+
+
+
+            <!--#region キー指定コントロール-->
+            <!--  region ListViewItem  -->
+            <Style x:Key="BaseListViewItem" TargetType="ListViewItem">
+                <Setter Property="Background" Value="Transparent" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderBrush" Value="{StaticResource 300Blush}" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="White" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+
+            <!--  region GridViewColomnHeader  -->
+            <Style x:Key="HiddenHeaderGridView" TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Visibility" Value="Collapsed" />
+            </Style>
+            <!--#endregion-->
+
+            <!--#endregion-->
+        </ResourceDictionary>
+        <!--#endregion-->
+    </prism:PrismApplication.Resources>
+</prism:PrismApplication>

@@ -1,0 +1,34 @@
+﻿<UserControl
+    x:Class="WPF_UnityControl.Control.FileHandlerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:WPF_UnityControl.Control"
+    xmlns:materialDesign="[materialDesign ]http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="230"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource 900Blush}" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <GroupBox
+            BorderBrush="White"
+            BorderThickness="0.5"
+            Header="ファイル操作"
+            Style="{x:Null}">
+            <StackPanel Margin="10">
+                <Button Content="ファイル読み込み" />
+                <Button Content="ファイル保存" />
+                <Button Content="ファイル保存" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>
