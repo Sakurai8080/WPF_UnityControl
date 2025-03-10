@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_UnityControl.Views.UserControls
+namespace WPF_UnityControl.Control
 {
     /// <summary>
     /// ObjectDetailControl.xaml の相互作用ロジック
