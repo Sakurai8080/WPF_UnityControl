@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_UnityControl.NetWork;
+using WPF_UnityControl.Test;
 
 namespace WPF_UnityControl.Control
 {
@@ -21,18 +23,18 @@ namespace WPF_UnityControl.Control
     public partial class UnityOparationsControl : UserControl
     {
 
-        private TCPClient _client; 
+        private readonly TestConnectService _connect;
 
         public UnityOparationsControl()
         {
             InitializeComponent();
 
-            _client = new TCPClient();
+            _connect = new TestConnectService();
         }
 
         private async void btConnect_Click(object sender, RoutedEventArgs e)
         {
-            await _client.ConnectAsync();
+            await _connect.TestConnect();
         }
 
         private async void btSend_Click(object sender, RoutedEventArgs e)
@@ -43,8 +45,7 @@ namespace WPF_UnityControl.Control
 
         private async void  btFetchScene_Click(object sender, RoutedEventArgs e)
         {
-            await _client.GetSceneListAsync();
-            
+            //await _client.();
         }
     }
 }
