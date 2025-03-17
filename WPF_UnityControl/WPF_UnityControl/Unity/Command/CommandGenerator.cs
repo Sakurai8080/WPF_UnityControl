@@ -12,14 +12,13 @@ namespace WPF_UnityControl.Unity
         /// <summary>
         /// コマンドタイプからUnity送信用コマンド(Json)を作成
         /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
+        /// <param name="cmd">コマンドタイプ</param>
+        /// <param name="parameters">コマンドに応じたパラメータ</param>
+        /// <returns>JSONファイル文字列</returns>
         public string GenerateJsonCommand(CommandType cmd, string[]? parameters =null)
         {
-            //Json作成
             var commandData = new
-            {
+            { // JSONの作成
                 Command = cmd.ToString(),
                 Parameters = parameters ?? new string[0]
             };

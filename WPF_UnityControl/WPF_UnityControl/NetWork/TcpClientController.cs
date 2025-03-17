@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -8,7 +9,10 @@ using System.Windows;
 
 namespace WPF_UnityControl.NetWork
 {
-    public class TcpClientController
+    /// <summary>
+    /// TCP経由でデータの送受信を操作するクラス
+    /// </summary>
+    public class TcpClientController 
     {
         private readonly UnityTcpClient _tcp;
 
@@ -17,19 +21,18 @@ namespace WPF_UnityControl.NetWork
             _tcp = tcp;
         }
 
-        public async Task BeginSocketWrite(string cmd)
+        /// <summary>
+        /// コマンドの送信    // この関数はUnityCommandDispatcherクラス等に持っていく。そのクラスでこのClient or ClientControllerを操作する。
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public async Task SendCommandAsync(string message)
         {
-            if (_tcp == null || cmd.Length < 1) 
-                return;
+            if (_tcp.Stream == null) return;
 
-            try
-            {
-                await _tcp.SendCommandAsync(cmd);
-            }
-            catch(SocketException ex)
-            {
-                MessageBox.Show($"サーバーへの送信中にエラーが発生しました : {ex.Message} \n 接続を確認してください。");
-            }
+            byte[] data = Encoding.UTF8.GetBytes(message + "\n"); 　// コマンドをバイト配列に変換
+            await _tcp.Stream.WriteAsync(data, 0, data.Length);
         }
+
     }
 }

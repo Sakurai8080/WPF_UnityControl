@@ -8,18 +8,10 @@ using Newtonsoft.Json;
 namespace WPF_UnityControl.NetWork
 {
     /// <summary>
-    /// Unityに接続するためのTCPClient
+    /// TCPの接続状態管理
     /// </summary>
-    public class UnityTcpClient
+    public class UnityTcpClient : IDisposable
     {
-        #region フィールド
-        /// <summary>  TCPクライアント </summary>
-        private TcpClient? _client;
-        
-        /// <summary> データの送受信するネットワークストリーム(TcpClientから取得)</summary>
-        private NetworkStream? _stream;
-        #endregion
-
         #region 定数フィールド
         /// <summary> 接続先のサーバーIPアドレス(ローカルホスト) </summary>
         private const string SERVER_IP = "127.0.0.1";
@@ -27,15 +19,32 @@ namespace WPF_UnityControl.NetWork
         /// <summary> TCPサーバーと通信するためのポート番号 </summary>
         private const int SERVER_PORT = 5000;
         #endregion
+        #region フィールド
+        /// <summary>  TCPクライアント </summary>
+        private TcpClient? _client;
+        
+        /// <summary> データの送受信するネットワークストリーム(TcpClientから取得)</summary>
+        private NetworkStream? _stream;
+        #endregion
+        #region プロパティ
+        /// <summary> データ送受信ストリーム </summary>
+        public NetworkStream? Stream => _stream;
+
+        /// <summary> 接続中フラグ </summary>
+        public bool IsConnected => _client?.Connected ?? false;
+        #endregion
 
         /// <summary>
         /// 接続処理
         /// </summary>
         /// <returns></returns>
-        public async Task ConnectAsync()
+        public async Task ConnectAsync()  // 引数にIPとPORTを渡す設計に変更予定
         {
             try
             {
+                if (_client?.Connected == true)  return;
+              
+
                 _client = new TcpClient();
                 await _client.ConnectAsync(SERVER_IP, SERVER_PORT);
                 _stream = _client.GetStream();
@@ -46,24 +55,15 @@ namespace WPF_UnityControl.NetWork
                 MessageBox.Show(App.Current.MainWindow, $"サーバー接続時にエラーが発生しました : {e.Message}");
             }
         }
-
-        /// <summary>
-        /// コマンドの送信    // この関数はUnityCommandDispatcherクラス等に持っていく。そのクラスでこのClient or ClientControllerを操作する。
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public async Task SendCommandAsync(string message)
-        {
-            if (_stream == null) return;
-
-            byte[] data = Encoding.UTF8.GetBytes(message + "\n"); 　// コマンドをバイト配列に変換
-            await _stream.WriteAsync(data, 0, data.Length);
-        }
-
+     
         public void Close()
         {
             _stream?.Close();
             _client?.Close();
+        }
+        public void Dispose()
+        {
+            Close();
         }
 
     }
