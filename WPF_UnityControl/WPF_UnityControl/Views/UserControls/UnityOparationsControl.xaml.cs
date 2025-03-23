@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_UnityControl.NetWork;
 using WPF_UnityControl.Test;
+using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Control
 {
@@ -23,24 +24,27 @@ namespace WPF_UnityControl.Control
     public partial class UnityOparationsControl : UserControl
     {
 
-        private readonly TestConnectService _connect;
+        private readonly UnityTcpClient _connect;
+        private readonly UnityCommandDispatcher _unityDsp;
+
 
         public UnityOparationsControl()
         {
             InitializeComponent();
 
-            _connect = new TestConnectService();
+            _connect = new UnityTcpClient();
+            _unityDsp = new UnityCommandDispatcher(new TcpClientController(_connect));
         }
 
         private async void btConnect_Click(object sender, RoutedEventArgs e)
         {
-            await _connect.TestConnect();
+            await _connect.ConnectAsync();
         }
 
         private async void btSend_Click(object sender, RoutedEventArgs e)
         {
-            //var sceneName = tbSceneName.Text;
-            //await _client.SendMessageAsync($"LOAD_SCENE:{sceneName}");
+            string[] prm = { "x : 1", "y : 2", " z : 3" };
+            _unityDsp.BeginSendCommand(CommandType.OBJECT_MOVE, prm);
         }
 
         private async void  btFetchScene_Click(object sender, RoutedEventArgs e)
