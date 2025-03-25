@@ -6,6 +6,7 @@ using System.Windows;
 using WPF_UnityControl.Views;
 using WPF_UnityControl.ViewModels;
 using WPF_UnityControl.Control;
+using WPF_UnityControl.Facades;
 
 namespace WPF_UnityControl;
 
@@ -25,7 +26,9 @@ public partial class App : PrismApplication
     /// <param name="containerRegistry"></param>
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
+        containerRegistry.RegisterSingleton<UnityController>();
         containerRegistry.RegisterForNavigation<MainContentPage, MainContentPageViewModel>();
+        containerRegistry.RegisterForNavigation<UnityOperationControl, UnityOperationControlViewModel>();
     }
 }
 
