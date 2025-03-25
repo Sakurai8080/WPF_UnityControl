@@ -21,6 +21,11 @@ namespace WPF_UnityControl.NetWork
             _tcp = tcp;
         }
 
+        public async Task ConnectToUnityAsync()
+        {
+            await _tcp.ConnectAsync();
+        }
+
         /// <summary>
         /// コマンドの送信    // この関数はUnityCommandDispatcherクラス等に持っていく。そのクラスでこのClient or ClientControllerを操作する。
         /// </summary>

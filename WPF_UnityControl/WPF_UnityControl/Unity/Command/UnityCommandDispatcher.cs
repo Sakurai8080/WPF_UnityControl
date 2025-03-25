@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using WPF_UnityControl.NetWork;
@@ -20,13 +21,18 @@ namespace WPF_UnityControl.Unity
         private readonly CommandGenerator _cmdGenerator;
         #endregion
 
+        #region プロパティ
+        public TcpClientController TCPController { get { return _tcpController; } }
+        #endregion
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="tcpController">TCP操作</param>
-        public UnityCommandDispatcher(TcpClientController tcpController)
+        public UnityCommandDispatcher()
         {
-            _tcpController = tcpController;
+            var tcp = new UnityTcpClient();
+            _tcpController = new TcpClientController(tcp);
             _cmdGenerator = new CommandGenerator();
         }
 
