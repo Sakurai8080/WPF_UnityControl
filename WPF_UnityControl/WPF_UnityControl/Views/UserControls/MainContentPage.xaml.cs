@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_UnityControl.Pages
+namespace WPF_UnityControl.Control
 {
     /// <summary>
     /// MainContentPage.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainContentPage : Page
+    public partial class MainContentPage : UserControl
     {
         public MainContentPage()
         {

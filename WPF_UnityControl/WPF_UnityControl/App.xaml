@@ -71,7 +71,7 @@
                         <Setter Property="BorderBrush" Value="{StaticResource 300Blush}" />
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="White" />
+                        <Setter Property="Background" Value="#4C708090" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

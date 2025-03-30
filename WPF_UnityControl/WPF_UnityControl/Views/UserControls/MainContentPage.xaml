@@ -1,14 +1,15 @@
-﻿<Page
-    x:Class="WPF_UnityControl.Pages.MainContentPage"
+﻿<UserControl
+    x:Class="WPF_UnityControl.Control.MainContentPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="clr-namespace:WPF_UnityControl.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:WPF_UnityControl.Pages"
+    xmlns:local="clr-namespace:WPF_UnityControl.Control"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="MainContentPage"
+    xmlns:prism="http://prismlibrary.com/"
     d:DesignHeight="600"
     d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     Background="{DynamicResource MaterialDesignDarkSeparatorBackground}"
     mc:Ignorable="d">
 
@@ -56,4 +57,4 @@
             </Grid>
         </Grid>
     </Grid>
-</Page>
+</UserControl>
