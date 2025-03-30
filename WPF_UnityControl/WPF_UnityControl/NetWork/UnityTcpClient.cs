@@ -84,9 +84,16 @@ namespace WPF_UnityControl.NetWork
                     if (bytesRead == 0) break;
 
                     string receivedText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    if (!string.IsNullOrEmpty(receivedText))
+                    stringBuilder.Append(receivedText);
+
+                    if (receivedText.TrimEnd().EndsWith("]"))
                     {
-                        OnReceived?.Invoke(receivedText);
+                        string completeJson = stringBuilder.ToString();
+                        stringBuilder.Clear();
+                        if (!string.IsNullOrEmpty(completeJson))
+                        {
+                            OnReceived?.Invoke(completeJson);
+                        }
                     }
                 }
             }

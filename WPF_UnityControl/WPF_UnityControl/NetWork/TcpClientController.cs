@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -16,9 +17,16 @@ namespace WPF_UnityControl.NetWork
     {
         private readonly UnityTcpClient _tcp;
 
-        public TcpClientController(UnityTcpClient tcp)
+        public Action<string> OnJsonResponse = (json) => { };
+
+        public TcpClientController()
         {
-            _tcp = tcp;
+            _tcp = new UnityTcpClient();
+
+            _tcp.OnReceived += json =>
+            {
+                OnJsonResponse(json);
+            };
         }
 
         public async Task ConnectToUnityAsync()
@@ -27,7 +35,7 @@ namespace WPF_UnityControl.NetWork
         }
 
         /// <summary>
-        /// コマンドの送信    // この関数はUnityCommandDispatcherクラス等に持っていく。そのクラスでこのClient or ClientControllerを操作する。
+        /// コマンドの送信   
         /// </summary>
         /// <param name="message"></param>
         /// <returns></returns>
