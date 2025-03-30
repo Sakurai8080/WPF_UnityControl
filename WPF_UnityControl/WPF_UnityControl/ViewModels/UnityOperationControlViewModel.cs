@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
 using WPF_UnityControl.NetWork;
 
@@ -13,6 +14,7 @@ namespace WPF_UnityControl.ViewModels
     public class UnityOperationControlViewModel : BindableBase
     {
         private UnityController _controller;
+        private IEventAggregator _eventAggregator;
 
         /// <summary> Unity接続切り替え </summary>
         public ReactiveCommandSlim ConnectStateCommand { get; } = new ReactiveCommandSlim();
@@ -27,10 +29,18 @@ namespace WPF_UnityControl.ViewModels
         /// コンストラクタ
         /// </summary>
         /// <param name="controller">Unity操作インスタンス(DIコンテナから自動注入)</param>
-        public UnityOperationControlViewModel(UnityController controller)
+        public UnityOperationControlViewModel(UnityController controller, IEventAggregator eventAggregator)
         {
             _controller = controller;
+            _eventAggregator = eventAggregator;
+
             ConnectStateCommand.Subscribe(_ => _controller.UnityConnetChange());
+            FetchSceneCommand.Subscribe(async _ =>
+            {
+                var sceneList = await _controller.FetchUnityScene();
+
+                _eventAggregator?.GetEvent<SceneListUpdateEvent>().Publish(sceneList);
+            });
             SetGameObjectCommand.Subscribe(_ => _controller.SetGameObjectPosition());
         }
     }

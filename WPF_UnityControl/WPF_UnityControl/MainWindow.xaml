@@ -25,7 +25,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid Margin="10,0">
-            <control:UnityOparationsControl />
+            <control:UnityOperationControl />
         </Grid>
 
         <Grid Grid.Column="1">
