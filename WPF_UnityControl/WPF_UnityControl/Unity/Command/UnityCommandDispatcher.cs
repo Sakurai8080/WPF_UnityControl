@@ -19,11 +19,19 @@ namespace WPF_UnityControl.Unity
 
         /// <summary> コマンド作成インスタンス </summary>
         private readonly CommandGenerator _cmdGenerator;
+
+        private SceneCommandResponse _sceneResponce; //クラス分けする
+
+        private TaskCompletionSource<bool> _sceneResponseReceived = new(); //処理待ちオブジェクト
         #endregion
 
         #region プロパティ
         public TcpClientController TCPController { get { return _tcpController; } }
+
+        public SceneCommandResponse SceneResponce => _sceneResponce;　// クラス分けする
         #endregion
+
+        public event Action<string> OnReceiveResponse = (msg) => { };
 
         /// <summary>
         /// コンストラクタ
@@ -31,9 +39,13 @@ namespace WPF_UnityControl.Unity
         /// <param name="tcpController">TCP操作</param>
         public UnityCommandDispatcher()
         {
-            var tcp = new UnityTcpClient();
-            _tcpController = new TcpClientController(tcp);
+            _tcpController = new TcpClientController();
             _cmdGenerator = new CommandGenerator();
+         
+            _tcpController.OnJsonResponse = (json) =>
+            {
+                ReceiveSceneData(json);
+            };
         }
 
         /// <summary>
@@ -41,10 +53,21 @@ namespace WPF_UnityControl.Unity
         /// </summary>
         /// <param name="cmd">コマンドタイプ</param>
         /// <param name="parameters">コマンドに応じたパラメータ</param>
-        public void BeginSendCommand(CommandType cmd, string[]? parameters = null)
+        public async Task BeginSendCommand(CommandType cmd, string[]? parameters = null)
         {
             var cmdJson = _cmdGenerator.GenerateJsonCommand(cmd, parameters);
-            _ = _tcpController.SendCommandAsync(cmdJson);
+            await _tcpController.SendCommandAsync(cmdJson);
+        }
+
+        private void ReceiveSceneData(string json)
+        {
+            _sceneResponce = new SceneCommandResponse(json);
+            _sceneResponseReceived.TrySetResult(true);  // レスポンス受信完了通知
+        }
+
+        public async Task WaitForSceneResponseAsync()
+        {
+            await _sceneResponseReceived.Task;
         }
     }
 }
