@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Test\**" />
+    <EmbeddedResource Remove="Test\**" />
+    <None Remove="Test\**" />
+    <Page Remove="Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\Logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -24,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Test\" />
     <Folder Include="Views\Pages\" />
   </ItemGroup>
 

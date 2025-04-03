@@ -1,16 +1,18 @@
 ﻿using Newtonsoft.Json;
 using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
 using WPF_UnityControl.Interface;
 
 namespace WPF_UnityControl.Unity
 {
+    /// <summary>
+    /// シーン一覧専用レスポンスクラス
+    /// </summary>
     public class SceneListResponse : IResponseData
     {
-
+        #region プロパティ
         /// <summary> Unityシーン一覧 </summary>
         public ReactivePropertySlim<List<string>> SceneList { get; } = new ReactivePropertySlim< List<string>>(new List<string>());
+        #endregion
 
         /// <summary>
         /// Jsonファイルを基に処理を実行
