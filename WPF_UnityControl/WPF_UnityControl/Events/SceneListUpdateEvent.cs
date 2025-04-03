@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPF_UnityControl.Events
+﻿namespace WPF_UnityControl.Events
 {
-    public class SceneListUpdateEvent : PubSubEvent<List<string>>
-    {
-    }
+    /// <summary> シーン一覧取得時の発行イベント </summary>
+    public class SceneListUpdateEvent : PubSubEvent<List<string>>{}
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using WPF_UnityControl.NetWork;
+﻿using WPF_UnityControl.NetWork;
 
 namespace WPF_UnityControl.Unity
 {
@@ -19,19 +13,10 @@ namespace WPF_UnityControl.Unity
 
         /// <summary> コマンド作成インスタンス </summary>
         private readonly CommandGenerator _cmdGenerator;
-
-        private SceneCommandResponse _sceneResponce; //クラス分けする
-
-        private TaskCompletionSource<bool> _sceneResponseReceived = new(); //処理待ちオブジェクト
         #endregion
-
         #region プロパティ
         public TcpClientController TCPController { get { return _tcpController; } }
-
-        public SceneCommandResponse SceneResponce => _sceneResponce;　// クラス分けする
         #endregion
-
-        public event Action<string> OnReceiveResponse = (msg) => { };
 
         /// <summary>
         /// コンストラクタ
@@ -41,11 +26,6 @@ namespace WPF_UnityControl.Unity
         {
             _tcpController = new TcpClientController();
             _cmdGenerator = new CommandGenerator();
-         
-            _tcpController.OnJsonResponse = (json) =>
-            {
-                ReceiveSceneData(json);
-            };
         }
 
         /// <summary>
@@ -57,17 +37,6 @@ namespace WPF_UnityControl.Unity
         {
             var cmdJson = _cmdGenerator.GenerateJsonCommand(cmd, parameters);
             await _tcpController.SendCommandAsync(cmdJson);
-        }
-
-        private void ReceiveSceneData(string json)
-        {
-            _sceneResponce = new SceneCommandResponse(json);
-            _sceneResponseReceived.TrySetResult(true);  // レスポンス受信完了通知
-        }
-
-        public async Task WaitForSceneResponseAsync()
-        {
-            await _sceneResponseReceived.Task;
         }
     }
 }
