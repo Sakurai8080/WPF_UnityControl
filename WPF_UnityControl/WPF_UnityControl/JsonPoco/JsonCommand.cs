@@ -12,7 +12,7 @@ namespace WPF_UnityControl
     /// </summary>
     public class JsonCommand
     {
-        [JsonProperty("Command")]
+        [JsonProperty("CommandType")]
         public string Command { get; set; }
 
         [JsonProperty("Parameters")]

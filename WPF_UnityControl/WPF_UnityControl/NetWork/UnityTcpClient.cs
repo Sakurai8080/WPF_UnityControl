@@ -1,10 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net;
+﻿using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
-using Newtonsoft.Json;
 
 namespace WPF_UnityControl.NetWork
 {
@@ -23,7 +20,7 @@ namespace WPF_UnityControl.NetWork
         #region フィールド
         /// <summary>  TCPクライアント </summary>
         private TcpClient? _client;
-        
+
         /// <summary> データの送受信するネットワークストリーム(TcpClientから取得)</summary>
         private NetworkStream? _stream;
         #endregion
@@ -34,21 +31,19 @@ namespace WPF_UnityControl.NetWork
         /// <summary> 接続中フラグ </summary>
         public bool IsConnected => _client?.Connected ?? false;
         #endregion
-
         #region デリゲート
         /// <summary> 受信完了イベント </summary>
         public Action<string> OnReceived = (json) => { };
         #endregion
+
         /// <summary>
         /// 接続処理
         /// </summary>
-        /// <returns></returns>
         public async Task ConnectAsync()  // 引数にIPとPORTを渡す設計に変更予定
         {
             try
             {
-                if (_client?.Connected == true)  return;
-              
+                if (_client?.Connected == true) return;
 
                 _client = new TcpClient();
                 await _client.ConnectAsync(SERVER_IP, SERVER_PORT);
@@ -67,7 +62,6 @@ namespace WPF_UnityControl.NetWork
         /// <summary>
         /// Unityサーバーからのデータを非同期で受信
         /// </summary>
-        /// <returns></returns>
         private async Task ReceiveLoopAsync()
         {
             if (_stream == null)
@@ -83,26 +77,19 @@ namespace WPF_UnityControl.NetWork
                     int bytesRead = await _stream.ReadAsync(buffer, 0, buffer.Length);
                     if (bytesRead == 0) break;
 
-                    string receivedText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    stringBuilder.Append(receivedText);
-
-                    if (receivedText.TrimEnd().EndsWith("]"))
-                    {
-                        string completeJson = stringBuilder.ToString();
-                        stringBuilder.Clear();
-                        if (!string.IsNullOrEmpty(completeJson))
-                        {
-                            OnReceived?.Invoke(completeJson);
-                        }
+                    string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    if (!string.IsNullOrEmpty(receivedJson))
+                    { // 受信があったときのイベント発行
+                        OnReceived?.Invoke(receivedJson);
                     }
                 }
             }
-            catch( Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
         }
-     
+
         public void Close()
         {
             _stream?.Close();
@@ -110,10 +97,10 @@ namespace WPF_UnityControl.NetWork
             _stream = null;
             _client = null;
         }
+
         public void Dispose()
         {
             Close();
         }
-
     }
 }
