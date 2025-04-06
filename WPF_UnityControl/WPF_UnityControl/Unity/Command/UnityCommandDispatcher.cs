@@ -1,4 +1,5 @@
-﻿using WPF_UnityControl.NetWork;
+﻿using System.Diagnostics;
+using WPF_UnityControl.NetWork;
 
 namespace WPF_UnityControl.Unity
 {
@@ -33,7 +34,7 @@ namespace WPF_UnityControl.Unity
         /// </summary>
         /// <param name="cmd">コマンドタイプ</param>
         /// <param name="parameters">コマンドに応じたパラメータ</param>
-        public async Task BeginSendCommand(CommandType cmd, string[]? parameters = null)
+        public async Task BeginSendCommand(CommandType cmd, params string[] parameters)
         {
             var cmdJson = _cmdGenerator.GenerateJsonCommand(cmd, parameters);
             await _tcpController.SendCommandAsync(cmdJson);

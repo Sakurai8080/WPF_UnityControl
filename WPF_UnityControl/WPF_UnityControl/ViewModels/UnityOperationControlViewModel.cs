@@ -2,6 +2,7 @@
 using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Windows;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
 
@@ -21,6 +22,9 @@ namespace WPF_UnityControl.ViewModels
 
         /// <summary> イベント仲介オブジェクト </summary>
         private IEventAggregator _eventAggregator;
+
+        /// <summary> Unityで変更するシーン名 </summary>
+        private string _changeSceneName = "";
         #endregion
         #region プロパティ
         /// <summary> UnityScene一覧 </summary>
@@ -31,6 +35,9 @@ namespace WPF_UnityControl.ViewModels
 
         /// <summary> シーン取得ボタン </summary>
         public ReactiveCommandSlim FetchSceneCommand { get; } = new ReactiveCommandSlim();
+
+        /// <summary> シーン変更コマンド </summary>
+        public ReactiveCommandSlim SceneChangeCommand { get; } = new ReactiveCommandSlim();
 
         /// <summary> ゲームオブジェクト移動 </summary>
         public ReactiveCommandSlim SetGameObjectCommand { get; } = new ReactiveCommandSlim();
@@ -48,13 +55,23 @@ namespace WPF_UnityControl.ViewModels
             _controller.SceneResponse.SceneList
                                      .Subscribe(list =>
                                      { // シーン一覧変更を購読
-                                           _eventAggregator?.GetEvent<SceneListUpdateEvent>().Publish(list);
+                                         _eventAggregator?.GetEvent<SceneListUpdateEvent>().Publish(list);
                                      })
                                      .AddTo(_disposables);
-                                                   
+
+            _eventAggregator.GetEvent<SceneNameChangedEvent>().Subscribe(name => _changeSceneName = name).AddTo(_disposables);
+
 
             ConnectStateCommand.Subscribe(_ => _controller.UnityConnetChange());
             FetchSceneCommand.Subscribe(async _ => await _controller.FetchUnityScene());
+            SceneChangeCommand.Subscribe(async _ =>
+                              {
+                                  if (!string.IsNullOrEmpty(_changeSceneName))
+                                  {
+                                      await _controller.UnitySceneChenge(_changeSceneName);
+                                  }
+                              });
+        
             SetGameObjectCommand.Subscribe(_ => _controller.SetGameObjectPosition());
         }
         #endregion

@@ -33,6 +33,7 @@
             <ListView
                 ItemContainerStyle="{StaticResource BaseListViewItem}"
                 ItemsSource="{Binding SceneList.Value}"
+                SelectedItem="{Binding SelectedSceneName.Value, Mode=TwoWay}"
                 SelectionMode="Single">
                 <ListView.View>
                     <GridView>

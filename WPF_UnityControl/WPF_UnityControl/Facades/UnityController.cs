@@ -53,6 +53,15 @@ namespace WPF_UnityControl.Facades
         }
 
         /// <summary>
+        /// Unityシーンの変更
+        /// </summary>
+        /// <param name="sceneName">シーンの変更</param>
+        public async Task UnitySceneChenge(string sceneName)
+        {
+            await _unityDsp.BeginSendCommand(CommandType.SCENE_CHANGE, sceneName);
+        }
+
+        /// <summary>
         /// オブジェクト作成
         /// </summary>
         public void SetGameObjectPosition()

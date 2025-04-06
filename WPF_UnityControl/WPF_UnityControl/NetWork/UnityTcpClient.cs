@@ -45,7 +45,6 @@ namespace WPF_UnityControl.NetWork
             {
                 if (_client?.Connected == true) return;
 
-
                 _client = new TcpClient();
                 await _client.ConnectAsync(SERVER_IP, SERVER_PORT);
                 _stream = _client.GetStream();
@@ -98,6 +97,7 @@ namespace WPF_UnityControl.NetWork
             _stream = null;
             _client = null;
         }
+
         public void Dispose()
         {
             Close();
