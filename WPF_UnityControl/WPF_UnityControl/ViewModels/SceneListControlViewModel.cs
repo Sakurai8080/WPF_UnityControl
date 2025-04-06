@@ -1,4 +1,5 @@
 ﻿using Reactive.Bindings;
+using System.Reactive.Linq;
 using WPF_UnityControl.Events;
 
 namespace WPF_UnityControl.ViewModels
@@ -15,6 +16,9 @@ namespace WPF_UnityControl.ViewModels
         #region プロパティ
         /// <summary> シーン一覧 </summary>
         public ReactivePropertySlim<List<string>> SceneList { get; } = new ReactivePropertySlim<List<string>>();
+
+        /// <summary> 選択したシーン名 </summary>
+        public ReactivePropertySlim<string> SelectedSceneName { get; } = new ReactivePropertySlim<string>(); 
         #endregion
         #region　コンストラクタ
         public SceneListControlViewModel(IEventAggregator eventAggregator)
@@ -24,6 +28,8 @@ namespace WPF_UnityControl.ViewModels
             { // SceneListの変更通知を購読
                 SceneList.Value = sceneList;
             });
+
+            SelectedSceneName.Skip(1).Subscribe(name => _eventAggregator.GetEvent<SceneNameChangedEvent>().Publish(name));
         }
         #endregion
     }

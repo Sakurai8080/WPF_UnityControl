@@ -27,7 +27,7 @@ public partial class App : PrismApplication
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterSingleton<UnityController>();
-        containerRegistry.RegisterForNavigation<MainContentPage, MainContentPageViewModel>();
+        containerRegistry.RegisterForNavigation<MainContentPage>();
         containerRegistry.RegisterForNavigation<UnityOperationControl, UnityOperationControlViewModel>();
         containerRegistry.RegisterForNavigation<SceneListControl, SceneListControlViewModel>();
     }

@@ -15,9 +15,9 @@ namespace WPF_UnityControl.Unity
         /// <param name="cmd">コマンドタイプ</param>
         /// <param name="parameters">コマンドに応じたパラメータ</param>
         /// <returns>JSONファイル文字列</returns>
-        public string GenerateJsonCommand(CommandType cmd, string[]? parameters = null)
+        public string GenerateJsonCommand(CommandType cmd, params string[] parameters)
         {
-            var commandData = new JsonCommand(cmd.ToString(), parameters ?? Array.Empty<string>());
+            var commandData = new JsonCommand(cmd.ToString(), parameters);
             return JsonConvert.SerializeObject(commandData);
         }
     }
