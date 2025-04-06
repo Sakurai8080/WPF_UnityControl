@@ -6,7 +6,7 @@
         OBJECT_ROTATE,
         OBJECT_SCALE,
         OBJECT_ACTIVESTATE,
-        SCENE_CHENGE,
+        SCENE_CHANGE,
         SCENE_FETCH,
     }
 }
