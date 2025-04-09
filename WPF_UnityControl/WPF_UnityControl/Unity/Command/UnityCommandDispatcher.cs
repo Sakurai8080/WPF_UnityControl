@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using WPF_UnityControl.NetWork;
+﻿using WPF_UnityControl.NetWork;
 
 namespace WPF_UnityControl.Unity
 {
