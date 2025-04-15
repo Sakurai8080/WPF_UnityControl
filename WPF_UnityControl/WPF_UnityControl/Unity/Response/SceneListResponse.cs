@@ -2,7 +2,7 @@
 using Reactive.Bindings;
 using WPF_UnityControl.Interface;
 
-namespace WPF_UnityControl.Unity
+namespace WPF_UnityControl.Response
 {
     /// <summary>
     /// シーン一覧専用レスポンスクラス

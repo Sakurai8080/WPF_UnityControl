@@ -1,5 +1,6 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
@@ -39,6 +40,9 @@ namespace WPF_UnityControl.ViewModels
         /// <summary> シーン変更コマンド </summary>
         public ReactiveCommandSlim SceneChangeCommand { get; } = new ReactiveCommandSlim();
 
+        /// <summmary>現在のヒエラルキー取得コマンド </summary>
+        public ReactiveCommandSlim FetchSceneHierarchy { get; } = new ReactiveCommandSlim();
+
         /// <summary> ゲームオブジェクト移動 </summary>
         public ReactiveCommandSlim SetGameObjectCommand { get; } = new ReactiveCommandSlim();
         #endregion
@@ -59,6 +63,14 @@ namespace WPF_UnityControl.ViewModels
                                      })
                                      .AddTo(_disposables);
 
+            _controller.HierarchyReponse.HierarchyList
+                                        .Subscribe(nodes =>
+                                        {
+                                          _eventAggregator.GetEvent<HierarchyFetchedEvent>().Publish(nodes);
+                                        })
+                                        .AddTo(_disposables);
+
+
             _eventAggregator.GetEvent<SceneNameChangedEvent>().Subscribe(name => _changeSceneName = name).AddTo(_disposables);
 
 
@@ -71,6 +83,8 @@ namespace WPF_UnityControl.ViewModels
                                       await _controller.UnitySceneChenge(_changeSceneName);
                                   }
                               });
+
+            FetchSceneHierarchy.Subscribe(async _ => await _controller.FetchUnityHierarchy());
         
             SetGameObjectCommand.Subscribe(_ => _controller.SetGameObjectPosition());
         }

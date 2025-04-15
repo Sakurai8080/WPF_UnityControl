@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using WPF_UnityControl.Response;
 using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Facades
@@ -16,10 +17,16 @@ namespace WPF_UnityControl.Facades
 
         /// <summary> シーン一覧レスポンスインスタンス </summary>
         public readonly SceneListResponse _sceneListResponse;
+
+        /// <summary> ヒエラルキーレスポンスインスタンス </summary>
+        public readonly HierarchyResponse _hierarchyResponse;
         #endregion
         #region プロパティ
         /// <summary> シーン一覧レスポンスインスタンス </summary>
         public SceneListResponse SceneResponse => _sceneListResponse;
+
+        /// <summary> ヒエラルキーレスポンスインスタンス </summary>
+        public HierarchyResponse HierarchyReponse => _hierarchyResponse;
         #endregion
         #region コンストラクタ
         public UnityController()
@@ -27,9 +34,11 @@ namespace WPF_UnityControl.Facades
             _unityDsp = new UnityCommandDispatcher();
             _resController = new ResponseController();
             _sceneListResponse = new SceneListResponse();
+            _hierarchyResponse = new HierarchyResponse();
 
             // タイプとレスポンス処理の登録
             _resController.ResponceCommandRegister(CommandType.SCENE_FETCH, SceneResponse);
+            _resController.ResponceCommandRegister(CommandType.FETCH_HIERARCHY, HierarchyReponse);
 
             // イベント登録
             _unityDsp.TCPController.OnJsonResponse = (json) => _resController?.HandleResponse(json);
@@ -62,11 +71,19 @@ namespace WPF_UnityControl.Facades
         }
 
         /// <summary>
+        /// Unityの現在開いているシーンのヒエラルキー取得
+        /// </summary>
+        public async Task FetchUnityHierarchy()
+        {
+            await _unityDsp.BeginSendCommand(CommandType.FETCH_HIERARCHY);
+        }
+
+        /// <summary>
         /// オブジェクト作成
         /// </summary>
         public void SetGameObjectPosition()
         {
-            string[] prm = {"TestObject", "1", "2", "3" };
+            string[] prm = { "TestObject", "1", "2", "3" };
             _unityDsp?.BeginSendCommand(CommandType.OBJECT_MOVE, prm);
         }
     }
