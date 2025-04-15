@@ -30,6 +30,7 @@ public partial class App : PrismApplication
         containerRegistry.RegisterForNavigation<MainContentPage>();
         containerRegistry.RegisterForNavigation<UnityOperationControl, UnityOperationControlViewModel>();
         containerRegistry.RegisterForNavigation<SceneListControl, SceneListControlViewModel>();
+        containerRegistry.RegisterForNavigation<HierarchyControl, HierarchyControlViewModel>();
     }
 }
 
