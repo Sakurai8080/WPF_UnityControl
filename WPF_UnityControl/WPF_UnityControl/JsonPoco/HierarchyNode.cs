@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPF_UnityControl.JsonPoco
+﻿namespace WPF_UnityControl.JsonPoco
 {
+    /// <summary>
+    /// ヒエラルキーのPOCOクラス
+    /// </summary>
     public class HierarchyNode
     {
         public string Name { get; set; }

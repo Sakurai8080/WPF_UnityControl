@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using WPF_UnityControl.Response;
+﻿using WPF_UnityControl.Response;
 using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Facades
