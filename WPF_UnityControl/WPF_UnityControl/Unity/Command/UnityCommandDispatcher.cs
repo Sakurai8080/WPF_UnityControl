@@ -22,9 +22,9 @@ namespace WPF_UnityControl.Unity
         /// コンストラクタ
         /// </summary>
         /// <param name="tcpController">TCP操作</param>
-        public UnityCommandDispatcher()
+        public UnityCommandDispatcher(TcpClientController controller)
         {
-            _tcpController = new TcpClientController();
+            _tcpController = controller;
             _cmdGenerator = new CommandGenerator();
         }
 
