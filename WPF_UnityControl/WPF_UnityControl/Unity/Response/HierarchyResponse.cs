@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Reactive.Bindings;
+using WPF_UnityControl.Base;
+using WPF_UnityControl.Events;
 using WPF_UnityControl.Interface;
 using WPF_UnityControl.JsonPoco;
 
@@ -8,10 +10,10 @@ namespace WPF_UnityControl.Response
     /// <summary>
     /// ヒエラルキーのレスポンスを処理するクラス
     /// </summary>
-    public class HierarchyResponse : IResponseData
+    public class HierarchyResponse : BaseResponse, IResponseData
     {
-        /// <summary> TreeView表示用ヒエラルキーリスト</summary>
-        public ReactivePropertySlim<List<HierarchyNode>> HierarchyList { get; } = new ReactivePropertySlim<List<HierarchyNode>>();
+
+        public HierarchyResponse(IEventAggregator eventAggregator) : base(eventAggregator) { }
 
         /// <summary>
         /// レスポンス処理の実行
@@ -25,9 +27,12 @@ namespace WPF_UnityControl.Response
             if (hierarchyJson?.Length >= 1)
             { // ノードに変換
                 var nodes = JsonConvert.DeserializeObject<List<HierarchyNode>>(hierarchyJson[0]);
-                HierarchyList.Value = nodes;
+                if (nodes != null)
+                {
+                    _eventAggregator.GetEvent<HierarchyFetchedEvent>().Publish(nodes);
+                }
             }
-        }
 
+        }
     }
 }

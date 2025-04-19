@@ -1,7 +1,6 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
-using System.Reactive.Linq;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
 
@@ -53,21 +52,6 @@ namespace WPF_UnityControl.ViewModels
         {
             _controller = controller;
             _eventAggregator = eventAggregator;
-
-            _controller.SceneResponse.SceneList
-                                     .Subscribe(list =>
-                                     { // シーン一覧変更を購読
-                                         _eventAggregator?.GetEvent<SceneListUpdateEvent>().Publish(list);
-                                     })
-                                     .AddTo(_disposables);
-
-            _controller.HierarchyReponse.HierarchyList
-                                        .Subscribe(nodes =>
-                                        {
-                                          _eventAggregator.GetEvent<HierarchyFetchedEvent>().Publish(nodes);
-                                        })
-                                        .AddTo(_disposables);
-
 
             _eventAggregator.GetEvent<SceneNameChangedEvent>().Subscribe(name => _changeSceneName = name).AddTo(_disposables);
 

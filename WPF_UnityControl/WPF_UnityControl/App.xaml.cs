@@ -7,6 +7,10 @@ using WPF_UnityControl.Views;
 using WPF_UnityControl.ViewModels;
 using WPF_UnityControl.Control;
 using WPF_UnityControl.Facades;
+using WPF_UnityControl.Response;
+using WPF_UnityControl.Unity;
+using WPF_UnityControl.NetWork;
+using System.Net.Sockets;
 
 namespace WPF_UnityControl;
 
@@ -26,6 +30,12 @@ public partial class App : PrismApplication
     /// <param name="containerRegistry"></param>
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
+        containerRegistry.RegisterSingleton<SceneListResponse>();
+        containerRegistry.RegisterSingleton<HierarchyResponse>();
+        containerRegistry.RegisterSingleton<ResponseController>();
+        containerRegistry.RegisterSingleton<TcpClientController>();
+        containerRegistry.RegisterSingleton<UnityCommandDispatcher>();
+
         containerRegistry.RegisterSingleton<UnityController>();
         containerRegistry.RegisterForNavigation<MainContentPage>();
         containerRegistry.RegisterForNavigation<UnityOperationControl, UnityOperationControlViewModel>();

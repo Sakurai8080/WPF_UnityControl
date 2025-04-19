@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Reactive.Bindings;
+using WPF_UnityControl.Base;
+using WPF_UnityControl.Events;
 using WPF_UnityControl.Interface;
 
 namespace WPF_UnityControl.Response
@@ -7,12 +9,10 @@ namespace WPF_UnityControl.Response
     /// <summary>
     /// シーン一覧専用レスポンスクラス
     /// </summary>
-    public class SceneListResponse : IResponseData
+    public class SceneListResponse : BaseResponse, IResponseData
     {
-        #region プロパティ
-        /// <summary> Unityシーン一覧 </summary>
-        public ReactivePropertySlim<List<string>> SceneList { get; } = new ReactivePropertySlim< List<string>>(new List<string>());
-        #endregion
+
+        public SceneListResponse(IEventAggregator eventAggregator) : base(eventAggregator){}
 
         /// <summary>
         /// レスポンス処理の実行
@@ -34,7 +34,7 @@ namespace WPF_UnityControl.Response
         public void ResponseToList(string[] scenes)
         {
             var sceneList = scenes?.ToList() ?? new();
-            SceneList.Value = sceneList;
+            _eventAggregator?.GetEvent<SceneListUpdateEvent>().Publish(sceneList);
         }
     }
 }

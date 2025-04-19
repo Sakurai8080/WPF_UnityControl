@@ -1,5 +1,4 @@
-﻿using WPF_UnityControl.Response;
-using WPF_UnityControl.Unity;
+﻿using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Facades
 {
@@ -8,37 +7,11 @@ namespace WPF_UnityControl.Facades
         #region フィールド
         /// <summary> Unityへの送信管理インスタンス </summary>
         private readonly UnityCommandDispatcher _unityDsp;
-
-        /// <summary> レスポンス管理インスタンス </summary>
-        private readonly ResponseController _resController;
-
-        /// <summary> シーン一覧レスポンスインスタンス </summary>
-        public readonly SceneListResponse _sceneListResponse;
-
-        /// <summary> ヒエラルキーレスポンスインスタンス </summary>
-        public readonly HierarchyResponse _hierarchyResponse;
-        #endregion
-        #region プロパティ
-        /// <summary> シーン一覧レスポンスインスタンス </summary>
-        public SceneListResponse SceneResponse => _sceneListResponse;
-
-        /// <summary> ヒエラルキーレスポンスインスタンス </summary>
-        public HierarchyResponse HierarchyReponse => _hierarchyResponse;
         #endregion
         #region コンストラクタ
-        public UnityController()
+        public UnityController(UnityCommandDispatcher commandDispatcher)
         {
-            _unityDsp = new UnityCommandDispatcher();
-            _resController = new ResponseController();
-            _sceneListResponse = new SceneListResponse();
-            _hierarchyResponse = new HierarchyResponse();
-
-            // タイプとレスポンス処理の登録
-            _resController.ResponceCommandRegister(CommandType.SCENE_FETCH, SceneResponse);
-            _resController.ResponceCommandRegister(CommandType.FETCH_HIERARCHY, HierarchyReponse);
-
-            // イベント登録
-            _unityDsp.TCPController.OnJsonResponse = (json) => _resController?.HandleResponse(json);
+            _unityDsp = commandDispatcher;
         }
         #endregion
 

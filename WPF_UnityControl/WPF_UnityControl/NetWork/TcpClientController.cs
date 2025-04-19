@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.NetWork
 {
@@ -10,19 +11,24 @@ namespace WPF_UnityControl.NetWork
         #region フィールド
         /// <summary> Unity接続インスタンス</summary>
         private readonly UnityTcpClient _tcp;
+
+        private readonly ResponseController _resCon;
         #endregion
         #region プロパティ
         public Action<string> OnJsonResponse = (json) => { };
         #endregion
         #region コンストラクタ
-        public TcpClientController()
+        public TcpClientController(ResponseController resCon)
         {
+            _resCon = resCon;
             _tcp = new UnityTcpClient();
 
             _tcp.OnReceived += json =>
             { // Jsonの受け取り
-                OnJsonResponse(json);
+                _resCon.HandleResponse(json);
             };
+
+
         }
         #endregion
 
