@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using WPF_UnityControl.Interface;
+using WPF_UnityControl.Response;
 
 namespace WPF_UnityControl.Unity
 {
@@ -12,12 +13,19 @@ namespace WPF_UnityControl.Unity
         /// <summary> コマンドタイプとレスポンス処理実行の紐づけ </summary>
         private readonly Dictionary<CommandType, IResponseData> _handleDic = new();
 
+
+        public ResponseController(SceneListResponse sceneRes, HierarchyResponse hierarchyRes)
+        {
+            ResponceCommandRegister(CommandType.SCENE_FETCH, sceneRes);
+            ResponceCommandRegister(CommandType.FETCH_HIERARCHY, hierarchyRes);
+        }
+
         /// <summary>
         /// 辞書への登録
         /// </summary>
         /// <param name="type">コマンドの種類</param>
         /// <param name="handle">Execute実行インスタンス</param>
-        public void ResponceCommandRegister(CommandType type, IResponseData handle)
+        private void ResponceCommandRegister(CommandType type, IResponseData handle)
         {
             _handleDic[type] = handle;
         }
