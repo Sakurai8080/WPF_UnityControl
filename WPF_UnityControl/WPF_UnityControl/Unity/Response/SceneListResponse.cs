@@ -15,9 +15,9 @@ namespace WPF_UnityControl.Response
         #endregion
 
         /// <summary>
-        /// Jsonファイルを基に処理を実行
+        /// レスポンス処理の実行
         /// </summary>
-        /// <param name="json">Unityから受け取ったJsonファイル</param>
+        /// <param name="json">シーン一覧Json</param>
         public void Execute(string json)
         {
             var scenes = JsonConvert.DeserializeObject<string[]>(json);
@@ -30,7 +30,7 @@ namespace WPF_UnityControl.Response
         /// <summary>
         /// Jsonファイルのシーン一覧をコレクションに格納
         /// </summary>
-        /// <param name="scenes"></param>
+        /// <param name="scenes">シーン一覧</param>
         public void ResponseToList(string[] scenes)
         {
             var sceneList = scenes?.ToList() ?? new();

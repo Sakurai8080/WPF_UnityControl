@@ -1,9 +1,7 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Windows;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
 
