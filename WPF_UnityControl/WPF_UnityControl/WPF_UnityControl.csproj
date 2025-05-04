@@ -33,8 +33,4 @@
     <PackageReference Include="ReactiveProperty.WPF" Version="9.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
