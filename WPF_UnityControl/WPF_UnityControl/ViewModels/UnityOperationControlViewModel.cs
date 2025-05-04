@@ -3,6 +3,7 @@ using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
+using WPF_UnityControl.Models;
 
 namespace WPF_UnityControl.ViewModels
 {
@@ -39,9 +40,6 @@ namespace WPF_UnityControl.ViewModels
 
         /// <summmary>現在のヒエラルキー取得コマンド </summary>
         public ReactiveCommandSlim FetchSceneHierarchy { get; } = new ReactiveCommandSlim();
-
-        /// <summary> ゲームオブジェクト移動 </summary>
-        public ReactiveCommandSlim SetGameObjectCommand { get; } = new ReactiveCommandSlim();
         #endregion
         #region コンストラクタ
         /// <summary>
@@ -67,8 +65,6 @@ namespace WPF_UnityControl.ViewModels
                               });
 
             FetchSceneHierarchy.Subscribe(async _ => await _controller.FetchUnityHierarchy());
-        
-            SetGameObjectCommand.Subscribe(_ => _controller.SetGameObjectPosition());
         }
         #endregion
 
