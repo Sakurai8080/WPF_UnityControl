@@ -1,4 +1,6 @@
-﻿using WPF_UnityControl.Unity;
+﻿using ControlzEx.Standard;
+using WPF_UnityControl.Models;
+using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Facades
 {
@@ -51,9 +53,20 @@ namespace WPF_UnityControl.Facades
         /// <summary>
         /// オブジェクト作成
         /// </summary>
-        public void SetGameObjectPosition()
+        public void SetGameObjectTransform(TransformModel transInfo)
         {
-            string[] prm = { "TestObject", "1", "2", "3" };
+            string[] prm = 
+                {
+                    transInfo.ObjectPosX,
+                    transInfo.ObjectPosY,
+                    transInfo.ObjectPosZ,
+                    transInfo.ObjectRotX,
+                    transInfo.ObjectRotY,
+                    transInfo.ObjectRotZ,
+                    transInfo.ObjectScaX,
+                    transInfo.ObjectScaY,
+                    transInfo.ObjectScaZ,
+                };
             _unityDsp?.BeginSendCommand(CommandType.OBJECT_MOVE, prm);
         }
     }
