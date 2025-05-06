@@ -51,6 +51,15 @@ namespace WPF_UnityControl.Facades
         }
 
         /// <summary>
+        /// オブジェクトデータ取得
+        /// </summary>
+        /// <param name="objName">選択したオブジェクト</param>
+        public async Task FetchObjectData(string objName)
+        {
+            await _unityDsp.BeginSendCommand(CommandType.OBJECT_DATA, objName);
+        }
+
+        /// <summary>
         /// オブジェクト作成
         /// </summary>
         public void SetGameObjectTransform(TransformModel transInfo)
