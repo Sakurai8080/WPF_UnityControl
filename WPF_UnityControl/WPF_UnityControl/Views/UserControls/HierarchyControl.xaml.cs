@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_UnityControl.ViewModels;
 
 namespace WPF_UnityControl.Control
 {
@@ -23,6 +24,16 @@ namespace WPF_UnityControl.Control
         public HierarchyControl()
         {
             InitializeComponent();
+        }
+
+        private void hierarchy_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var selecte = e.NewValue;
+            if (DataContext is HierarchyControlViewModel vm && e.NewValue != null)
+            {
+                var select = e.NewValue.GetType();
+                vm.SelectedName.Value = select.Name.ToString();
+            }
         }
     }
 }
