@@ -4,42 +4,42 @@ namespace WPF_UnityControl.JsonPoco
 {
     public class JsonGameObject
     {
-        [JsonProperty("Name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("Tag")]
+        [JsonProperty("tag")]
         public string Tag { get; set; }
 
-        [JsonProperty("Layer")]
+        [JsonProperty("layer")]
         public string Layer { get; set; }
 
-        [JsonProperty("IsActive")]
+        [JsonProperty("isActive")]
         public bool IsActive { get; set; }
 
-        [JsonProperty("Transform")]
+        [JsonProperty("transform")]
         public JsonTransform Transform { get; set; }
     }
 
     public class JsonTransform
     {
-        [JsonProperty("Position")]
+        [JsonProperty("position")]
         public JsonVector3 Position { get; set; }
 
-        [JsonProperty("Rotation")]
+        [JsonProperty("rotation")]
         public JsonVector3 Rotation { get; set; }
 
-        [JsonProperty("Scale")]
+        [JsonProperty("scale")]
         public JsonVector3 Scale { get; set; }
     }
 
     public class JsonVector3
     {
-        [JsonProperty("X")]
+        [JsonProperty("x")]
         public float X { get; set; }
 
-        [JsonProperty("Y")]
+        [JsonProperty("y")]
         public float Y { get; set; }
-        [JsonProperty("Z")]
+        [JsonProperty("z")]
         public float Z { get; set; }
     }
 }
