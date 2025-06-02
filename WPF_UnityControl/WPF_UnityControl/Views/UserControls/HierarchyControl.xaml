@@ -46,7 +46,10 @@
                 Background="Black"
                 BorderBrush="{StaticResource 700Blush}"
                 BorderThickness="0.8" />
-            <TreeView x:Name="hierarchy" ItemsSource="{Binding HierarchyTree.Value}" SelectedItemChanged="hierarchy_SelectedItemChanged">
+            <TreeView
+                x:Name="hierarchy"
+                ItemsSource="{Binding HierarchyTree.Value}"
+                SelectedItemChanged="hierarchy_SelectedItemChanged">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                         <TextBlock Text="{Binding Name}" />
