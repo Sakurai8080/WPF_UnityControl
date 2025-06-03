@@ -8,8 +8,8 @@ namespace WPF_UnityControl.Models
 {
     public class TransformModel
     {
-        public Vector3Model Position { get; } = new Vector3Model();
-        public Vector3Model Rotation { get; } = new Vector3Model();
-        public Vector3Model Scale { get; } = new Vector3Model();
+        public Vector3Model Position { get; set; } = new Vector3Model();
+        public Vector3Model Rotation { get; set; } = new Vector3Model();
+        public Vector3Model Scale { get; set; } = new Vector3Model();
     }
 }

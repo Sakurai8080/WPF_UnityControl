@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPF_UnityControl.Models
+﻿namespace WPF_UnityControl.Models
 {
     public class GameObjectModel
     {
@@ -16,6 +10,6 @@ namespace WPF_UnityControl.Models
 
         public bool IsActive { get; set; }
 
-        public TransformModel Transform { get; }
+        public TransformModel Transform { get; set; }
     }
 }

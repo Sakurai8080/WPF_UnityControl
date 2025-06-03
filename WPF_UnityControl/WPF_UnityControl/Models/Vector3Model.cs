@@ -9,8 +9,8 @@ namespace WPF_UnityControl.Models
 {
     public class Vector3Model
     {
-        public ReactivePropertySlim<float> X { get; } = new ReactivePropertySlim<float>();
-        public ReactivePropertySlim<float> Y { get; } = new ReactivePropertySlim<float>();
-        public ReactivePropertySlim<float> Z { get; } = new ReactivePropertySlim<float>();
+        public ReactivePropertySlim<float> X { get; set; } = new ReactivePropertySlim<float>();
+        public ReactivePropertySlim<float> Y { get; set; } = new ReactivePropertySlim<float>();
+        public ReactivePropertySlim<float> Z { get; set; } = new ReactivePropertySlim<float>();
     }
 }
