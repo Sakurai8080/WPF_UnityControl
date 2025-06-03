@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:WPF_UnityControl.Control"
     xmlns:materialDesign="[materialDesign ]http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="230"
-    d:DesignWidth="300"
+    d:DesignHeight="190"
+    d:DesignWidth="250"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -24,7 +24,7 @@
             BorderThickness="0.5"
             Header="ファイル操作"
             Style="{x:Null}">
-            <StackPanel Margin="10">
+            <StackPanel Margin="10,6,10,0">
                 <Button Content="ファイル読み込み" />
                 <Button Content="ファイル保存" />
                 <Button Content="ファイル保存" />

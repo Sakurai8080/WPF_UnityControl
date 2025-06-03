@@ -14,10 +14,11 @@ namespace WPF_UnityControl.Unity
         private readonly Dictionary<CommandType, IResponseData> _handleDic = new();
 
 
-        public ResponseController(SceneListResponse sceneRes, HierarchyResponse hierarchyRes)
+        public ResponseController(SceneListResponse sceneRes, HierarchyResponse hierarchyRes, ObjectDataResponse objRes)
         {
             ResponceCommandRegister(CommandType.SCENE_FETCH, sceneRes);
             ResponceCommandRegister(CommandType.FETCH_HIERARCHY, hierarchyRes);
+            ResponceCommandRegister(CommandType.OBJECT_DATA, objRes);
         }
 
         /// <summary>

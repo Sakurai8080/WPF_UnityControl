@@ -32,6 +32,7 @@ public partial class App : PrismApplication
     {
         containerRegistry.RegisterSingleton<SceneListResponse>();
         containerRegistry.RegisterSingleton<HierarchyResponse>();
+        containerRegistry.RegisterSingleton<ObjectDataResponse>();
         containerRegistry.RegisterSingleton<ResponseController>();
         containerRegistry.RegisterSingleton<TcpClientController>();
         containerRegistry.RegisterSingleton<UnityCommandDispatcher>();
@@ -41,6 +42,7 @@ public partial class App : PrismApplication
         containerRegistry.RegisterForNavigation<UnityOperationControl, UnityOperationControlViewModel>();
         containerRegistry.RegisterForNavigation<SceneListControl, SceneListControlViewModel>();
         containerRegistry.RegisterForNavigation<HierarchyControl, HierarchyControlViewModel>();
+        containerRegistry.RegisterForNavigation<ObjectDetailControl, ObjectDetailControlViewModel>();
     }
 }
 
