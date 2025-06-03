@@ -9,12 +9,21 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <Grid>
-        <Border BorderBrush="{StaticResource 500Blush}" BorderThickness="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="280*" />
+        </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Bottom">
+            <TextBlock Text="ログ情報" />
+        </Grid>
+        <Border
+            Grid.Row="1"
+            BorderBrush="{StaticResource 500Blush}"
+            BorderThickness="1">
             <TextBlock
                 Background="{StaticResource AppBackGround}"
                 FontSize="16"
-                Foreground="White"
-                Text="テストテスト" />
+                Foreground="White" />
         </Border>
     </Grid>
 </UserControl>

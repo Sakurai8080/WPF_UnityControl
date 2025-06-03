@@ -25,15 +25,15 @@
             </Grid.ColumnDefinitions>
 
             <!--  シーン一覧表示  -->
-            <Grid Margin="10,30">
+            <Grid Margin="10,30,10,10">
                 <control:SceneListControl />
             </Grid>
 
-            <Grid Grid.Column="1" Margin="10,30">
+            <Grid Grid.Column="1" Margin="10,30,10,10">
                 <control:HierarchyControl />
             </Grid>
 
-            <Grid Grid.Column="2" Margin="10,30,30,30">
+            <Grid Grid.Column="2" Margin="10,30,30,10">
                 <control:ObjectDetailControl />
             </Grid>
         </Grid>
@@ -50,7 +50,7 @@
                 <control:LogControl />
             </Grid>
 
-            <Grid Grid.Column="1" Margin="10,0,30,30">
+            <Grid Grid.Column="1" Margin="10,10,30,30">
                 <control:FileHandlerControl />
             </Grid>
         </Grid>

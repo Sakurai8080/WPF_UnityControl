@@ -1,8 +1,8 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System;
 using System.Reactive.Disposables;
 using WPF_UnityControl.Events;
+using WPF_UnityControl.Facades;
 using WPF_UnityControl.JsonPoco;
 
 namespace WPF_UnityControl.ViewModels
@@ -18,15 +18,28 @@ namespace WPF_UnityControl.ViewModels
 
         /// <summary> イベント仲介オブジェクト </summary>
         private readonly IEventAggregator _eventAggregator;
+
+        /// <summary>
+        /// Unityコントローラーインスタンス
+        /// </summary>
+        private readonly UnityController _controller;
         #endregion
         #region プロパティ
-        /// <summary> ヒエラルキー表示データ </summary>
+        /// <summary>
+        /// ヒエラルキー表示データ
+        /// </summary>
         public ReactivePropertySlim<List<HierarchyNode>> HierarchyTree { get; } = new ReactivePropertySlim<List<HierarchyNode>>();
+
+        /// <summary>
+        /// 選択中のゲームオブジェクト
+        /// </summary>
+        public ReactivePropertySlim<string> SelectedName { get; } = new ReactivePropertySlim<string>();
         #endregion
         #region コンストラクタ
-        public HierarchyControlViewModel(IEventAggregator eventAggregator)
+        public HierarchyControlViewModel(IEventAggregator eventAggregator, UnityController controller)
         {
             _eventAggregator = eventAggregator;
+            _controller = controller;
 
             _eventAggregator.GetEvent<HierarchyFetchedEvent>()
                             .Subscribe(nodes =>
@@ -34,6 +47,8 @@ namespace WPF_UnityControl.ViewModels
                                 HierarchyTree.Value = nodes;
                             })
                             .AddTo(_disposables);
+
+            SelectedName.Subscribe( async name => await _controller.FetchObjectData(name));
         }
         #endregion
 
