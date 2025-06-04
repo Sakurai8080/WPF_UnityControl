@@ -29,13 +29,23 @@ namespace WPF_UnityControl.Unity
         }
 
         /// <summary>
-        /// コマンド送信開始
+        /// コマンド送信開始 (取得用 : パラメータなし)
+        /// </summary>
+        /// <param name="cmd">コマンドタイプ</param>
+        public async Task BeginSendCommand(CommandType cmd)
+        {
+            var cmdJson = _cmdGenerator.GenerateJsonCommand(cmd);
+            await _tcpController.SendCommandAsync(cmdJson);
+        }
+
+        /// <summary>
+        /// コマンド送信開始 (設定用 : パラメータあり)
         /// </summary>
         /// <param name="cmd">コマンドタイプ</param>
         /// <param name="parameters">コマンドに応じたパラメータ</param>
-        public async Task BeginSendCommand(CommandType cmd, params string[] parameters)
+        public async Task BeginSendCommand(CommandType cmd, object  parameter)
         {
-            var cmdJson = _cmdGenerator.GenerateJsonCommand(cmd, parameters);
+            var cmdJson = _cmdGenerator.GenerateJsonCommand(cmd, parameter);
             await _tcpController.SendCommandAsync(cmdJson);
         }
     }
