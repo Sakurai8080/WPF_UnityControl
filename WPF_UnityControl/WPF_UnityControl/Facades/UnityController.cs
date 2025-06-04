@@ -1,4 +1,6 @@
 ﻿using ControlzEx.Standard;
+using Reactive.Bindings;
+using WPF_UnityControl.JsonPoco;
 using WPF_UnityControl.Models;
 using WPF_UnityControl.Unity;
 
@@ -56,27 +58,45 @@ namespace WPF_UnityControl.Facades
         /// <param name="objName">選択したオブジェクト</param>
         public async Task FetchObjectData(string objName)
         {
-            await _unityDsp.BeginSendCommand(CommandType.OBJECT_DATA, objName);
+            await _unityDsp.BeginSendCommand(CommandType.GET_OBJECT_DATA, objName);
         }
 
         /// <summary>
-        /// オブジェクト作成
+        /// オブジェクトデータの送信
         /// </summary>
-        public void SetGameObjectTransform(TransformModel transInfo)
+        public void SetGameObjectData(GameObjectModel objInfo)
         {
-            string[] prm = 
+            var jsonObj = new JsonGameObject
+            {
+                Name = objInfo.Name,
+                Tag = objInfo.Tag,
+                Layer = objInfo.Layer,
+                IsActive = objInfo.IsActive,
+                Transform = new JsonTransform
                 {
-                    transInfo.ObjectPosX,
-                    transInfo.ObjectPosY,
-                    transInfo.ObjectPosZ,
-                    transInfo.ObjectRotX,
-                    transInfo.ObjectRotY,
-                    transInfo.ObjectRotZ,
-                    transInfo.ObjectScaX,
-                    transInfo.ObjectScaY,
-                    transInfo.ObjectScaZ,
-                };
-            _unityDsp?.BeginSendCommand(CommandType.OBJECT_MOVE, prm);
+                    Position = new JsonVector3
+                    {
+                        X = objInfo.Transform.Position.X.Value,
+                        Y = objInfo.Transform.Position.Y.Value,
+                        Z = objInfo.Transform.Position.Z.Value,
+                    },
+                    Rotation = new JsonVector3
+                    {
+                        X = objInfo.Transform.Rotation.X.Value,
+                        Y = objInfo.Transform.Rotation.Y.Value,
+                        Z = objInfo.Transform.Rotation.Z.Value,
+                    },
+                    Scale = new JsonVector3
+                    {
+                        X = objInfo.Transform.Scale.X.Value,
+                        Y = objInfo.Transform.Scale.Y.Value,
+                        Z = objInfo.Transform.Scale.Z.Value,
+                    }
+
+                }
+            };
+
+            _unityDsp?.BeginSendCommand(CommandType.SET_OBJECT_DATA, jsonObj);
         }
     }
 }
