@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WPF_UnityControl
 {
@@ -16,9 +11,9 @@ namespace WPF_UnityControl
         public string Command { get; set; }
 
         [JsonProperty("Parameters")]
-        public string[] Parameters { get; set; }
+        public object Parameters { get; set; }
 
-        public JsonCommand(string command, string[] parameters)
+        public JsonCommand(string command, object parameters)
         {
             Command = command;
             Parameters = parameters;

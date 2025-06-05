@@ -36,7 +36,7 @@
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <TextBlock Text="Active" />
-                <CheckBox IsChecked="True" />
+                <CheckBox IsChecked="{Binding GameObjectData.Value.IsActive}" />
             </StackPanel>
             <TextBlock
                 Grid.Row="1"
@@ -169,7 +169,8 @@
                 <Button
                     Width="100"
                     HorizontalAlignment="Right"
-                    Background="{StaticResource 900Blush}">
+                    Background="{StaticResource 900Blush}"
+                    Command="{Binding ObjectDataApplyCommand}">
                     <TextBlock Text="Apply" />
                 </Button>
             </Grid>
