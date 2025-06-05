@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Reactive.Bindings;
 using WPF_UnityControl.Base;
 using WPF_UnityControl.Events;
@@ -36,39 +31,42 @@ namespace WPF_UnityControl.Response
         {
             var goJson = JsonConvert.DeserializeObject<JsonGameObject>(json[0]);
 
-            var gameObjectData = new GameObjectModel
+            if (goJson != null)
             {
-                Name = goJson.Name,
-                Tag = goJson.Tag,
-                Layer = goJson.Layer,
-                IsActive = goJson.IsActive,
-                Transform = new TransformModel
+                var gameObjectData = new GameObjectModel
                 {
-                    Position = new Vector3Model
+                    Name = goJson.Name,
+                    Tag = goJson.Tag,
+                    Layer = goJson.Layer,
+                    IsActive = goJson.IsActive,
+                    Transform = new TransformModel
                     {
-                        X = new ReactivePropertySlim<float>(goJson.Transform.Position.X),
-                        Y = new ReactivePropertySlim<float>(goJson.Transform.Position.Y),
-                        Z = new ReactivePropertySlim<float>(goJson.Transform.Position.Z),
-                    },
-                    Rotation = new Vector3Model
-                    {
-                        X = new ReactivePropertySlim<float>(goJson.Transform.Rotation.X),
-                        Y = new ReactivePropertySlim<float>(goJson.Transform.Rotation.Y),
-                        Z = new ReactivePropertySlim<float>(goJson.Transform.Rotation.Z),
-                    },
-                    Scale = new Vector3Model
-                    {
-                        X = new ReactivePropertySlim<float>(goJson.Transform.Scale.X),
-                        Y = new ReactivePropertySlim<float>(goJson.Transform.Scale.Y),
-                        Z = new ReactivePropertySlim<float>(goJson.Transform.Scale.Z),
+                        Position = new Vector3Model
+                        {
+                            X = new ReactivePropertySlim<float>(goJson.Transform.Position.X),
+                            Y = new ReactivePropertySlim<float>(goJson.Transform.Position.Y),
+                            Z = new ReactivePropertySlim<float>(goJson.Transform.Position.Z),
+                        },
+                        Rotation = new Vector3Model
+                        {
+                            X = new ReactivePropertySlim<float>(goJson.Transform.Rotation.X),
+                            Y = new ReactivePropertySlim<float>(goJson.Transform.Rotation.Y),
+                            Z = new ReactivePropertySlim<float>(goJson.Transform.Rotation.Z),
+                        },
+                        Scale = new Vector3Model
+                        {
+                            X = new ReactivePropertySlim<float>(goJson.Transform.Scale.X),
+                            Y = new ReactivePropertySlim<float>(goJson.Transform.Scale.Y),
+                            Z = new ReactivePropertySlim<float>(goJson.Transform.Scale.Z),
+                        }
+
                     }
+                };
 
+                if (gameObjectData != null)
+                {
+                    _eventAggregator.GetEvent<GameObjectDataFetchedEvent>().Publish(gameObjectData);
                 }
-            };
-
-            if(gameObjectData != null)
-            {
-                _eventAggregator.GetEvent<GameObjectDataFetchedEvent>().Publish(gameObjectData);
             }
         }
     }
