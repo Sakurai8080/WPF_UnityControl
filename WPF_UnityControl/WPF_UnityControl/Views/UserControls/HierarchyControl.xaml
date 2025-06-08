@@ -22,13 +22,13 @@
                 Margin="5,0"
                 VerticalAlignment="Stretch"
                 Kind="ViewList" />
-            <TextBlock FontSize="16" Text="シーン Hierarchy" />
+            <TextBlock FontSize="16" Text="シーンヒエラルキー" />
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" />
         <Grid Grid.Row="1">
             <Border
-                Background="Black"
-                BorderBrush="{StaticResource 700Blush}"
+                Background="{StaticResource AppBackGround}"
+                BorderBrush="{StaticResource 900Blush}"
                 BorderThickness="0.8" />
             <TreeView
                 x:Name="hierarchy"

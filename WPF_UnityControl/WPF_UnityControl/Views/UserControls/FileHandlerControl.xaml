@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:WPF_UnityControl.Control"
     xmlns:materialDesign="[materialDesign ]http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="190"
-    d:DesignWidth="250"
+    d:DesignHeight="150"
+    d:DesignWidth="160"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -22,12 +22,19 @@
         <GroupBox
             BorderBrush="White"
             BorderThickness="0.5"
-            Header="ファイル操作"
+            Header="オブジェクトファイル"
             Style="{x:Null}">
-            <StackPanel Margin="10,6,10,0">
-                <Button Content="ファイル読み込み" />
-                <Button Content="ファイル保存" />
-                <Button Content="ファイル保存" />
+            <StackPanel>
+                <Button
+                    Height="40"
+                    Margin="13,16,13,0"
+                    BorderThickness="0"
+                    Content="保存" />
+                <Button
+                    Height="40"
+                    Margin="13,17,13,0"
+                    BorderThickness="0"
+                    Content="読込" />
             </StackPanel>
         </GroupBox>
     </Grid>
