@@ -24,23 +24,7 @@
                 Kind="ViewList" />
             <TextBlock FontSize="16" Text="シーン Hierarchy" />
         </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-            <materialDesign:PackIcon Kind="Filter" />
-            <ComboBox
-                Width="100"
-                Height="20"
-                Padding="5,0,10,0"
-                HorizontalAlignment="Right"
-                materialDesign:HintAssist.Hint="TAG"
-                Background="{StaticResource AppBackGround}"
-                BorderBrush="{StaticResource 700Blush}"
-                BorderThickness="1"
-                Style="{StaticResource MaterialDesignFilledComboBox}">
-                <ComboBoxItem Content="Player" />
-                <ComboBoxItem Content="Enemy" />
-                <ComboBoxItem Content="UI" />
-            </ComboBox>
-        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" />
         <Grid Grid.Row="1">
             <Border
                 Background="Black"

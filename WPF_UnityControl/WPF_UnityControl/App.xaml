@@ -33,7 +33,7 @@
             <SolidColorBrush x:Key="900Blush" Color="{DynamicResource Primary900}" />
 
             <SolidColorBrush x:Key="AppBaseColor" Color="#FF131B1F" />
-            <SolidColorBrush x:Key="AppBackGround" Color="#FF1B1B1B" />
+            <SolidColorBrush x:Key="AppBackGround" Color="#FF131313" />
             <!--#endregion-->
             <!--  region マテリアルデザイン PackIcon  -->
             <Style TargetType="materialDesign:PackIcon">
@@ -45,13 +45,13 @@
             <!--  region アプリ内コントロール定義  -->
             <!--  region Label  -->
             <Style TargetType="Label">
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Foreground" Value="#FFC3C3C3" />
                 <Setter Property="FontSize" Value="14" />
             </Style>
             <!--#endregion-->
             <!--  region TextBlock  -->
             <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Foreground" Value="#FFC3C3C3" />
                 <Setter Property="FontSize" Value="14" />
             </Style>
             <!--#endregion-->
@@ -75,7 +75,17 @@
             </Style>
             <!--#endregion-->
 
+            <!--  region TextBlock  -->
+            <!--<Style TargetType="Button">
+                <Setter Property="BorderBrush" Value="{StaticResource 900Blush}" />
+            </Style>-->
             <!--#endregion-->
+
+            <!--#endregion-->
+            <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource 800Blush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource 900Blush}" />
+            </Style>
         </ResourceDictionary>
         <!--#endregion-->
     </prism:PrismApplication.Resources>
