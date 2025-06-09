@@ -18,7 +18,7 @@ namespace WPF_UnityControl.ViewModels
 
         public ReactivePropertySlim<GameObjectModel> GameObjectData { get; set; } = new();
 
-        public ReactiveCommandSlim TransformChangeCommand = new ReactiveCommandSlim();
+        public ReactiveCommandSlim ObjectDataApplyCommand { get; } = new ReactiveCommandSlim();
 
 
         public ObjectDetailControlViewModel(UnityController controller, IEventAggregator eventAggregator)
@@ -33,9 +33,9 @@ namespace WPF_UnityControl.ViewModels
                             });
 
 
-            TransformChangeCommand.Subscribe(_ =>
+            ObjectDataApplyCommand.Subscribe(_ =>
                                   {
-                                     // _controller.SetGameObjectTransform(transformInfo);
+                                     _controller.SetGameObjectData(GameObjectData.Value);
                                   });
         }
     }

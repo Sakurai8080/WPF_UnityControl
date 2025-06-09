@@ -5,7 +5,7 @@
         SCENE_CHANGE,
         SCENE_FETCH,
         FETCH_HIERARCHY,
-        OBJECT_DATA,
-        OBJECT_ACTIVESTATE,
+        GET_OBJECT_DATA,
+        SET_OBJECT_DATA,
     }
 }

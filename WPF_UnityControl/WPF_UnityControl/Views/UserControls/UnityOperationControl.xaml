@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
-    d:DesignHeight="600"
+    d:DesignHeight="700"
     d:DesignWidth="250"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Background="#FF131B1F"
@@ -16,6 +16,8 @@
     <UserControl.Resources>
         <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
             <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="{StaticResource 800Blush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource 900Blush}" />
         </Style>
     </UserControl.Resources>
 
@@ -29,42 +31,30 @@
             <Button
                 x:Name="btConnect"
                 Margin="0,20,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Background="DimGray"
+                BorderThickness="0"
                 Command="{Binding ConnectStateCommand}"
                 Content="Unity接続" />
             <Button
                 x:Name="btSend"
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
                 Command="{Binding FetchSceneCommand}"
                 Content="シーン一覧取得" />
             <Button
                 x:Name="btFetchScene"
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
                 Command="{Binding SceneChangeCommand}"
-                Content="シーンロード" />
+                Content="シーン切替" />
             <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
                 Command="{Binding FetchSceneHierarchy}"
                 Content="シーンヒエラルキー取得" />
+            <Button Margin="0,136,0,0" Content="シーンデータ保存" />
+            <Button Margin="0,15,0,0" Content="シーンデータ読込" />
             <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Content="シーンデータ保存" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Command="{Binding SetGameObjectCommand}"
-                Content="ゲームオブジェクト移動" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Content="クリア" />
-            <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
+                Background="#FF714141"
+                BorderThickness="0"
                 Content="アプリ終了" />
         </StackPanel>
     </Grid>

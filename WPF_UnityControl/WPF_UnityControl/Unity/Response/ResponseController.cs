@@ -18,7 +18,7 @@ namespace WPF_UnityControl.Unity
         {
             ResponceCommandRegister(CommandType.SCENE_FETCH, sceneRes);
             ResponceCommandRegister(CommandType.FETCH_HIERARCHY, hierarchyRes);
-            ResponceCommandRegister(CommandType.OBJECT_DATA, objRes);
+            ResponceCommandRegister(CommandType.GET_OBJECT_DATA, objRes);
         }
 
         /// <summary>
