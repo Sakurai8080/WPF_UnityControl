@@ -16,6 +16,8 @@
     <UserControl.Resources>
         <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
             <Setter Property="Height" Value="50" />
+            <Setter Property="Background" Value="{StaticResource 800Blush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource 900Blush}" />
         </Style>
     </UserControl.Resources>
 
@@ -30,32 +32,29 @@
                 x:Name="btConnect"
                 Margin="0,20,0,0"
                 Background="DimGray"
+                BorderThickness="0"
                 Command="{Binding ConnectStateCommand}"
                 Content="Unity接続" />
             <Button
                 x:Name="btSend"
-                Margin="0,20,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
                 Command="{Binding FetchSceneCommand}"
                 Content="シーン一覧取得" />
             <Button
                 x:Name="btFetchScene"
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
                 Command="{Binding SceneChangeCommand}"
-                Content="シーンロード" />
+                Content="シーン切替" />
             <Button
-                Margin="0,10,0,0"
-                Background="{StaticResource AppBaseColor}"
+                Margin="0,15,0,0"
                 Command="{Binding FetchSceneHierarchy}"
                 Content="シーンヒエラルキー取得" />
+            <Button Margin="0,136,0,0" Content="シーンデータ保存" />
+            <Button Margin="0,15,0,0" Content="シーンデータ読込" />
             <Button
-                Margin="0,210,0,0"
-                Background="{StaticResource AppBaseColor}"
-                Content="シーンデータ保存" />
-            <Button
-                Margin="0,10,0,0"
-                Background="Chocolate"
+                Margin="0,15,0,0"
+                Background="#FF714141"
+                BorderThickness="0"
                 Content="アプリ終了" />
         </StackPanel>
     </Grid>

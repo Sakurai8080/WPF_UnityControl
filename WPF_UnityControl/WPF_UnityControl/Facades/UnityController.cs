@@ -66,37 +66,40 @@ namespace WPF_UnityControl.Facades
         /// </summary>
         public void SetGameObjectData(GameObjectModel objInfo)
         {
-            var jsonObj = new JsonGameObject
+            if (objInfo != null)
             {
-                Name = objInfo.Name,
-                Tag = objInfo.Tag,
-                Layer = objInfo.Layer,
-                IsActive = objInfo.IsActive,
-                Transform = new JsonTransform
+                var jsonObj = new JsonGameObject
                 {
-                    Position = new JsonVector3
+                    Name = objInfo.Name,
+                    Tag = objInfo.Tag,
+                    Layer = objInfo.Layer,
+                    IsActive = objInfo.IsActive,
+                    Transform = new JsonTransform
                     {
-                        X = objInfo.Transform.Position.X.Value,
-                        Y = objInfo.Transform.Position.Y.Value,
-                        Z = objInfo.Transform.Position.Z.Value,
-                    },
-                    Rotation = new JsonVector3
-                    {
-                        X = objInfo.Transform.Rotation.X.Value,
-                        Y = objInfo.Transform.Rotation.Y.Value,
-                        Z = objInfo.Transform.Rotation.Z.Value,
-                    },
-                    Scale = new JsonVector3
-                    {
-                        X = objInfo.Transform.Scale.X.Value,
-                        Y = objInfo.Transform.Scale.Y.Value,
-                        Z = objInfo.Transform.Scale.Z.Value,
+                        Position = new JsonVector3
+                        {
+                            X = objInfo.Transform.Position.X.Value,
+                            Y = objInfo.Transform.Position.Y.Value,
+                            Z = objInfo.Transform.Position.Z.Value,
+                        },
+                        Rotation = new JsonVector3
+                        {
+                            X = objInfo.Transform.Rotation.X.Value,
+                            Y = objInfo.Transform.Rotation.Y.Value,
+                            Z = objInfo.Transform.Rotation.Z.Value,
+                        },
+                        Scale = new JsonVector3
+                        {
+                            X = objInfo.Transform.Scale.X.Value,
+                            Y = objInfo.Transform.Scale.Y.Value,
+                            Z = objInfo.Transform.Scale.Z.Value,
+                        }
+
                     }
+                };
+                _unityDsp?.BeginSendCommand(CommandType.SET_OBJECT_DATA, jsonObj);
 
-                }
-            };
-
-            _unityDsp?.BeginSendCommand(CommandType.SET_OBJECT_DATA, jsonObj);
+            }
         }
     }
 }

@@ -18,12 +18,12 @@
         </Grid>
         <Border
             Grid.Row="1"
-            BorderBrush="{StaticResource 500Blush}"
-            BorderThickness="1">
+            BorderBrush="{StaticResource 900Blush}"
+            BorderThickness="2">
             <TextBlock
-                Background="{StaticResource AppBackGround}"
+                Background="#FF121212"
                 FontSize="16"
-                Foreground="White" />
+                Foreground="WhiteSmoke" />
         </Border>
     </Grid>
 </UserControl>

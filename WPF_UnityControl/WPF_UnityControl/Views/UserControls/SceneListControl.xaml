@@ -22,13 +22,13 @@
                 Margin="5,0"
                 VerticalAlignment="Stretch"
                 Kind="Panorama" />
-            <TextBlock FontSize="16" Text="Unityシーン一覧" />
+            <TextBlock FontSize="16" Text="シーン一覧" />
         </StackPanel>
 
         <Grid Grid.Row="1">
             <Border
-                Background="Black"
-                BorderBrush="{StaticResource 700Blush}"
+                Background="{StaticResource AppBackGround}"
+                BorderBrush="{StaticResource 900Blush}"
                 BorderThickness="0.8" />
             <ListView
                 ItemContainerStyle="{StaticResource BaseListViewItem}"

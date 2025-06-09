@@ -7,7 +7,7 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
-    d:DesignHeight="400"
+    d:DesignHeight="450"
     d:DesignWidth="350"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
@@ -32,46 +32,55 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock Text="オブジェクト名" />
+            <TextBlock
+                Margin="0,5,0,0"
+                FontWeight="Bold"
+                Text="オブジェクト名" />
 
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <TextBlock Text="Active" />
-                <CheckBox IsChecked="{Binding GameObjectData.Value.IsActive}" />
+                <TextBlock VerticalAlignment="Bottom" Text="Active" />
+                <CheckBox VerticalAlignment="Bottom" IsChecked="{Binding GameObjectData.Value.IsActive}" />
             </StackPanel>
-            <TextBlock
-                Grid.Row="1"
-                Grid.ColumnSpan="2"
-                Height="25"
-                Background="Black"
-                Text="{Binding GameObjectData.Value.Name}" />
+            <Border Grid.Row="1" Grid.ColumnSpan="2">
+                <TextBlock
+                    Height="30"
+                    Padding="5,4,0,0"
+                    Background="#FF303030"
+                    FontSize="16"
+                    Text="{Binding GameObjectData.Value.Name}" />
+            </Border>
+
         </Grid>
 
-        <Grid Grid.Row="1" Margin="0,10">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="0,10" Orientation="Horizontal">
                 <TextBlock Text="TAG" />
-                <TextBlock
+                <ComboBox
                     Width="100"
                     Height="20"
                     Margin="10,0,0,0"
                     Padding="5,0,10,0"
-                    Background="Black"
+                    Background="#FF303030"
                     Text="{Binding GameObjectData.Value.Tag}" />
             </StackPanel>
 
 
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <StackPanel
+                Grid.Column="1"
+                Margin="0,10"
+                Orientation="Horizontal">
                 <TextBlock Text="LAYER" />
-                <TextBlock
+                <ComboBox
                     Width="100"
                     Height="20"
                     Margin="10,0,0,0"
                     Padding="5,0,10,0"
-                    Background="Black"
+                    Background="#FF2D2D2D"
                     Text="{Binding GameObjectData.Value.Layer}" />
             </StackPanel>
         </Grid>
@@ -85,22 +94,22 @@
             <TextBlock VerticalAlignment="Center" Text="Postion" />
             <StackPanel
                 Grid.Column="1"
-                Margin="0,10"
+                Margin="0,15"
                 Orientation="Horizontal">
                 <TextBlock Margin="10,0" Text="X" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Position.X.Value}" />
                 <TextBlock Margin="10,0" Text="Y" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Position.Y.Value}" />
                 <TextBlock Margin="10,0" Text="Z" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Position.Z.Value}" />
             </StackPanel>
         </Grid>
@@ -120,17 +129,17 @@
                 <TextBlock Margin="10,0" Text="X" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Rotation.X.Value}" />
                 <TextBlock Margin="10,0" Text="Y" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Rotation.Y.Value}" />
                 <TextBlock Margin="10,0" Text="Z" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Rotation.Z.Value}" />
             </StackPanel>
         </Grid>
@@ -149,17 +158,17 @@
                 <TextBlock Margin="10,0" Text="X" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Scale.X.Value}" />
                 <TextBlock Margin="10,0" Text="Y" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Scale.Y.Value}" />
                 <TextBlock Margin="10,0" Text="Z" />
                 <TextBox
                     Width="72"
-                    Background="#FF303030"
+                    Background="{StaticResource AppBackGround}"
                     Text="{Binding GameObjectData.Value.Transform.Scale.Z.Value}" />
             </StackPanel>
         </Grid>
@@ -168,6 +177,7 @@
             <Grid Grid.Column="2">
                 <Button
                     Width="100"
+                    Margin="0,5,0,0"
                     HorizontalAlignment="Right"
                     Background="{StaticResource 900Blush}"
                     Command="{Binding ObjectDataApplyCommand}">
@@ -176,7 +186,7 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="6" Margin="0,10,0,0">
+        <Grid Grid.Row="6" Margin="0,15,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -187,32 +197,18 @@
                     <materialDesign:PackIcon
                         Margin="5,0"
                         VerticalAlignment="Stretch"
-                        Kind="Material" />
-                    <TextBlock FontSize="16" Text="コンポーネント" />
+                        Kind="Note" />
+                    <TextBlock FontSize="16" Text="オブジェクト情報" />
                 </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
-                <Border
-                    Background="Black"
-                    BorderBrush="{StaticResource 700Blush}"
-                    BorderThickness="0.8" />
-                <ListView ItemContainerStyle="{StaticResource BaseListViewItem}" SelectionMode="Single">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Width="Auto" HeaderContainerStyle="{StaticResource HiddenHeaderGridView}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Label
-                                            HorizontalContentAlignment="Left"
-                                            VerticalContentAlignment="Center"
-                                            Content="{Binding}"
-                                            FontSize="12" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                <TextBox
+                    Padding="10,4,0,4"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Top"
+                    Background="{StaticResource AppBackGround}"
+                    BorderBrush="DimGray"
+                    FontSize="12" TextWrapping="Wrap" />
             </Grid>
         </Grid>
     </Grid>
