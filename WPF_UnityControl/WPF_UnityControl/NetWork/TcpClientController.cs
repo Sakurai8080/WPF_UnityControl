@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Windows.Interop;
 using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.NetWork
@@ -14,8 +15,12 @@ namespace WPF_UnityControl.NetWork
 
         private readonly ResponseController _resCon;
         #endregion
-        #region プロパティ
+        #region デリゲート
         public Action<string> OnJsonResponse = (json) => { };
+
+        public Action<string> OnUnityConnected = (json) => { };
+
+        public Action<string> OnResponseReceive = (json) => { };
         #endregion
         #region コンストラクタ
         public TcpClientController(ResponseController resCon)
@@ -28,7 +33,16 @@ namespace WPF_UnityControl.NetWork
                 _resCon.HandleResponse(json);
             };
 
+            _tcp.OnUnityConnected += (msg) =>
+            { // Unityの接続状態
+                OnUnityConnected($"{msg}\r\n");
+            };
 
+            _resCon.OnResponseReceive += (msg) =>
+            { // Unityレスポンスデータ表示
+                var now = DateTime.Now;
+                OnResponseReceive($"[情報 : {now} ] >>> {msg}\r\n");
+            };
         }
         #endregion
 

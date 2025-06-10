@@ -12,10 +12,27 @@ namespace WPF_UnityControl.Facades
         /// <summary> Unityへの送信管理インスタンス </summary>
         private readonly UnityCommandDispatcher _unityDsp;
         #endregion
+        #region デリゲート
+        /// <summary> 受信完了イベント </summary>
+        public Action<string> OnUnityConnected = (msg) => { };
+
+        /// <summary> 受信完了イベント </summary>
+        public Action<string> OnResponseReceive = (msg) => { };
+        #endregion
         #region コンストラクタ
         public UnityController(UnityCommandDispatcher commandDispatcher)
         {
             _unityDsp = commandDispatcher;
+
+            _unityDsp.TCPController.OnUnityConnected += (msg) =>
+            {
+                OnUnityConnected(msg);
+            };
+
+            _unityDsp.TCPController.OnResponseReceive += (msg) =>
+            {
+                OnResponseReceive(msg);
+            };
         }
         #endregion
 

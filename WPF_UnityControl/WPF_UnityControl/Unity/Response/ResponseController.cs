@@ -14,6 +14,8 @@ namespace WPF_UnityControl.Unity
         private readonly Dictionary<CommandType, IResponseData> _handleDic = new();
 
 
+        public Action<string> OnResponseReceive = (msg) => { };
+
         public ResponseController(SceneListResponse sceneRes, HierarchyResponse hierarchyRes, ObjectDataResponse objRes)
         {
             ResponceCommandRegister(CommandType.SCENE_FETCH, sceneRes);
@@ -45,6 +47,8 @@ namespace WPF_UnityControl.Unity
                     if (_handleDic.TryGetValue(commandType, out var handler))
                     {
                         var payloadJson = JsonConvert.SerializeObject(json.Parameters);
+                        OnResponseReceive($"レスポンス : コマンドタイプ [{commandType}]");
+
                         handler.Execute(payloadJson);
                     }
                 }
