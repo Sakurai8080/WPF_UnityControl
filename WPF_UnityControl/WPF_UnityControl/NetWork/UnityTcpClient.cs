@@ -34,6 +34,9 @@ namespace WPF_UnityControl.NetWork
         #region デリゲート
         /// <summary> 受信完了イベント </summary>
         public Action<string> OnReceived = (json) => { };
+
+        /// <summary> 受信完了イベント </summary>
+        public Action<string> OnUnityConnected = (msg) => { };
         #endregion
 
         /// <summary>
@@ -50,8 +53,7 @@ namespace WPF_UnityControl.NetWork
                 _stream = _client.GetStream();
                 _ = ReceiveLoopAsync(); // 受信監視開始
 
-                Debug.WriteLine($"接続完了 :{SERVER_IP} - {SERVER_PORT}");
-                MessageBox.Show(App.Current.MainWindow, $"接続完了 :{SERVER_IP} - {SERVER_PORT}");
+                OnUnityConnected($"Unity接続 >>>接続しました。\r\n{SERVER_IP} - {SERVER_PORT}");
             }
             catch (SocketException e)
             {

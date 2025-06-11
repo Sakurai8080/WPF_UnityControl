@@ -43,6 +43,7 @@ public partial class App : PrismApplication
         containerRegistry.RegisterForNavigation<SceneListControl, SceneListControlViewModel>();
         containerRegistry.RegisterForNavigation<HierarchyControl, HierarchyControlViewModel>();
         containerRegistry.RegisterForNavigation<ObjectDetailControl, ObjectDetailControlViewModel>();
+        containerRegistry.RegisterForNavigation<LogControl, LogControlViewModel>();
     }
 }
 
