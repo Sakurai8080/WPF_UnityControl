@@ -18,6 +18,11 @@ namespace WPF_UnityControl.Facades
 
         /// <summary> 受信完了イベント </summary>
         public Action<string> OnResponseReceive = (msg) => { };
+
+        public Action<bool> IsSending = (isSending) => { };
+
+        public Action<bool> OnConnected = (onConnected) => { };
+
         #endregion
         #region コンストラクタ
         public UnityController(UnityCommandDispatcher commandDispatcher)
@@ -32,6 +37,16 @@ namespace WPF_UnityControl.Facades
             _unityDsp.TCPController.OnResponseReceive += (msg) =>
             {
                 OnResponseReceive(msg);
+            };
+
+            _unityDsp.TCPController.IsSending += (isSending) =>
+            {
+                IsSending(isSending);
+            };
+
+            _unityDsp.TCPController.OnConnected += (onConnected) =>
+            {
+                OnConnected(onConnected);
             };
         }
         #endregion

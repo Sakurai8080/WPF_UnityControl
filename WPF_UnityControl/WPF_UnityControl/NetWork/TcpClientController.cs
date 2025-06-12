@@ -21,6 +21,10 @@ namespace WPF_UnityControl.NetWork
         public Action<string> OnUnityConnected = (json) => { };
 
         public Action<string> OnResponseReceive = (json) => { };
+
+        public Action<bool> IsSending = (isSending) => { };
+
+        public Action<bool> OnConnected = (onConnected) => { };
         #endregion
         #region コンストラクタ
         public TcpClientController(ResponseController resCon)
@@ -42,6 +46,16 @@ namespace WPF_UnityControl.NetWork
             { // Unityレスポンスデータ表示
                 var now = DateTime.Now;
                 OnResponseReceive($"[情報 : {now} ] >>> {msg}\r\n");
+            };
+
+            _tcp.IsSending += (isSend) =>
+            { // Unityレスポンスデータ表示
+                IsSending(isSend);
+            };
+
+            _tcp.OnConnected += (onConnected) =>
+            {
+                OnConnected(onConnected);
             };
         }
         #endregion
@@ -65,6 +79,5 @@ namespace WPF_UnityControl.NetWork
             byte[] data = Encoding.UTF8.GetBytes(message + "\n"); 　// コマンドをバイト配列に変換
             await _tcp.Stream.WriteAsync(data, 0, data.Length);
         }
-
     }
 }

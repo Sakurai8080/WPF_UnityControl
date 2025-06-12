@@ -1,5 +1,6 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using System.Diagnostics;
 using System.Reactive.Disposables;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
@@ -28,6 +29,10 @@ namespace WPF_UnityControl.ViewModels
         #region プロパティ
         /// <summary> UnityScene一覧 </summary>
         public ReactivePropertySlim<List<string>> SceneList { get; set; } = new ReactivePropertySlim<List<string>>();
+
+        public ReactivePropertySlim<bool> IsSending { get; set; } = new ReactivePropertySlim<bool>(false);
+
+        public ReactivePropertySlim<bool> OnConnected { get; set; } = new ReactivePropertySlim<bool>(false);
 
         /// <summary> Unity接続切り替え </summary>
         public ReactiveCommandSlim ConnectStateCommand { get; } = new ReactiveCommandSlim();
@@ -65,6 +70,18 @@ namespace WPF_UnityControl.ViewModels
                               });
 
             FetchSceneHierarchy.Subscribe(async _ => await _controller.FetchUnityHierarchy());
+
+            _controller.IsSending += (state) =>
+            {
+                IsSending.Value = state;
+                Debug.WriteLine($"送信 >>>> {state}");
+            };
+
+            _controller.OnConnected += (state) =>
+            {
+                OnConnected.Value = state;
+                Debug.WriteLine($"接続 >>>> {state}");
+            };
         }
         #endregion
 
