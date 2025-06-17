@@ -14,11 +14,43 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+        <Style
+            x:Key="ControlButton"
+            BasedOn="{StaticResource MaterialDesignRaisedButton}"
+            TargetType="Button">
             <Setter Property="Height" Value="50" />
             <Setter Property="Background" Value="{StaticResource 800Blush}" />
             <Setter Property="BorderBrush" Value="{StaticResource 900Blush}" />
+            <Setter Property="IsEnabled" Value="False" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding OnConnected.Value}" Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding OnConnected.Value}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+
+        <Style
+            x:Key="ConnectButton"
+            BasedOn="{StaticResource ControlButton}"
+            TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSending.Value}" Value="true">
+                    <Setter Property="materialDesign:ButtonProgressAssist.IsIndeterminate" Value="True" />
+                    <Setter Property="materialDesign:ButtonProgressAssist.IsIndicatorVisible" Value="True" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding IsSending.Value}" Value="false">
+                    <Setter Property="materialDesign:ButtonProgressAssist.IsIndeterminate" Value="False" />
+                    <Setter Property="materialDesign:ButtonProgressAssist.IsIndicatorVisible" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+
+        </Style>
+
     </UserControl.Resources>
 
     <Grid>
@@ -31,31 +63,56 @@
             <Button
                 x:Name="btConnect"
                 Margin="0,20,0,0"
-                Background="DimGray"
                 BorderThickness="0"
                 Command="{Binding ConnectStateCommand}"
-                Content="Unity接続" />
+                IsEnabled="True">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource ConnectButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OnConnected.Value}" Value="True">
+                                <Setter Property="Background" Value="SteelBlue" />
+                                <Setter Property="Content" Value="接続中" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding OnConnected.Value}" Value="False">
+                                <Setter Property="Background" Value="DimGray" />
+                                <Setter Property="Content" Value="Unity接続" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button
                 x:Name="btSend"
                 Margin="0,15,0,0"
                 Command="{Binding FetchSceneCommand}"
-                Content="シーン一覧取得" />
+                Content="シーン一覧取得"
+                Style="{StaticResource ControlButton}" />
             <Button
                 x:Name="btFetchScene"
                 Margin="0,15,0,0"
                 Command="{Binding SceneChangeCommand}"
-                Content="シーン切替" />
+                Content="シーン切替"
+                Style="{StaticResource ControlButton}" />
             <Button
                 Margin="0,15,0,0"
                 Command="{Binding FetchSceneHierarchy}"
-                Content="シーンヒエラルキー取得" />
-            <Button Margin="0,136,0,0" Content="シーンデータ保存" />
-            <Button Margin="0,15,0,0" Content="シーンデータ読込" />
+                Content="シーンヒエラルキー取得"
+                Style="{StaticResource ControlButton}" />
+            <Button
+                Margin="0,136,0,0"
+                Content="シーンデータ保存"
+                Style="{StaticResource ControlButton}" />
+            <Button
+                Margin="0,15,0,0"
+                Content="シーンデータ読込"
+                Style="{StaticResource ControlButton}" />
             <Button
                 Margin="0,15,0,0"
                 Background="#FF714141"
                 BorderThickness="0"
-                Content="アプリ終了" />
+                Content="アプリ終了"
+                IsEnabled="True"
+                Style="{StaticResource ControlButton}" />
         </StackPanel>
     </Grid>
 </UserControl>
