@@ -1,6 +1,4 @@
-﻿using ControlzEx.Standard;
-using Reactive.Bindings;
-using WPF_UnityControl.JsonPoco;
+﻿using WPF_UnityControl.JsonPoco;
 using WPF_UnityControl.Models;
 using WPF_UnityControl.Unity;
 
@@ -9,20 +7,31 @@ namespace WPF_UnityControl.Facades
     public class UnityController
     {
         #region フィールド
-        /// <summary> Unityへの送信管理インスタンス </summary>
+        /// <summary> 
+        /// Unityへの送信管理インスタンス 
+        /// </summary>
         private readonly UnityCommandDispatcher _unityDsp;
         #endregion
         #region デリゲート
-        /// <summary> 受信完了イベント </summary>
+        /// <summary>
+        /// Unity接続イベント 
+        /// </summary>
         public Action<string> OnUnityConnected = (msg) => { };
 
-        /// <summary> 受信完了イベント </summary>
+        /// <summary>
+        /// レスポンス受信メッセージイベント
+        /// </summary>
         public Action<string> OnResponseReceive = (msg) => { };
 
-        public Action<bool> IsSending = (isSending) => { };
+        /// <summary>
+        /// Unity送信中イベント
+        /// </summary>
+        public Action<bool> OnCommandSending = (isSending) => { };
 
+        /// <summary>
+        /// 接続イベント
+        /// </summary>
         public Action<bool> OnConnected = (onConnected) => { };
-
         #endregion
         #region コンストラクタ
         public UnityController(UnityCommandDispatcher commandDispatcher)
@@ -30,22 +39,22 @@ namespace WPF_UnityControl.Facades
             _unityDsp = commandDispatcher;
 
             _unityDsp.TCPController.OnUnityConnected += (msg) =>
-            {
+            { // Unity接続メッセージイベント登録
                 OnUnityConnected(msg);
             };
 
             _unityDsp.TCPController.OnResponseReceive += (msg) =>
-            {
+            { // レスポンス受信イベント登録
                 OnResponseReceive(msg);
             };
 
             _unityDsp.TCPController.IsSending += (isSending) =>
-            {
-                IsSending(isSending);
+            { // コマンド送信中イベント登録
+                OnCommandSending(isSending);
             };
 
             _unityDsp.TCPController.OnConnected += (onConnected) =>
-            {
+            { // 接続イベント登録
                 OnConnected(onConnected);
             };
         }
@@ -130,7 +139,6 @@ namespace WPF_UnityControl.Facades
                     }
                 };
                 _unityDsp?.BeginSendCommand(CommandType.SET_OBJECT_DATA, jsonObj);
-
             }
         }
     }

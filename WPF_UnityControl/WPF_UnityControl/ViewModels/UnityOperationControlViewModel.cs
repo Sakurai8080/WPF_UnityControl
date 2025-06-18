@@ -71,7 +71,7 @@ namespace WPF_UnityControl.ViewModels
 
             FetchSceneHierarchy.Subscribe(async _ => await _controller.FetchUnityHierarchy());
 
-            _controller.IsSending += (state) =>
+            _controller.OnCommandSending += (state) =>
             {
                 IsSending.Value = state;
                 Debug.WriteLine($"送信 >>>> {state}");
