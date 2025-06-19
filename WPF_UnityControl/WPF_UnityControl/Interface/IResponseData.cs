@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WPF_UnityControl.Interface
+﻿namespace WPF_UnityControl.Interface
 {
+    
+    /// <summary>
+    /// レスポンス用インターフェース
+    /// </summary>
     public interface IResponseData
     {
+        /// <summary>
+        /// レスポンス実行
+        /// </summary>
+        /// <param name="json">返答データ</param>
         void Execute(string json);
     }
 }
