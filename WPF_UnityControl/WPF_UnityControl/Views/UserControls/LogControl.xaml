@@ -23,7 +23,8 @@
                 Margin="0,0,0,5"
                 Padding="0,0,0,0"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Bottom">
+                VerticalAlignment="Bottom"
+                Command="{Binding LogClear}">
                 <TextBlock
                     Padding="0,1,0,0"
                     FontSize="12"

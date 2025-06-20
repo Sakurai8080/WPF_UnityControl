@@ -15,8 +15,10 @@ namespace WPF_UnityControl.ViewModels
     {
         private UnityController _controller;
 
-        public ReactiveProperty<string> Log { get; } = new ReactiveProperty<string>();
+        public ReactiveProperty<string> Log { get; set; } = new ReactiveProperty<string>();
 
+        public ReactiveCommandSlim LogClear { get; } = new ReactiveCommandSlim();
+ 
         public LogControlViewModel(UnityController controller)
         {
             _controller = controller;
@@ -30,6 +32,8 @@ namespace WPF_UnityControl.ViewModels
             {
                 Log.Value += msg;
             };
+
+            LogClear.Subscribe(_ => Log.Value = "");
         }
     }
 }
