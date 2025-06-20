@@ -181,7 +181,7 @@
                     HorizontalAlignment="Right"
                     Background="{StaticResource 900Blush}"
                     Command="{Binding ObjectDataApplyCommand}">
-                    <TextBlock Text="Apply" />
+                    <TextBlock Text="適用" />
                 </Button>
             </Grid>
         </Grid>
@@ -208,7 +208,8 @@
                     VerticalContentAlignment="Top"
                     Background="{StaticResource AppBackGround}"
                     BorderBrush="DimGray"
-                    FontSize="12" TextWrapping="Wrap" />
+                    FontSize="12"
+                    TextWrapping="Wrap" />
             </Grid>
         </Grid>
     </Grid>
