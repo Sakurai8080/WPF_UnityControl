@@ -1,4 +1,6 @@
-﻿namespace WPF_UnityControl.Interface
+﻿using WPF_UnityControl.Unity;
+
+namespace WPF_UnityControl.Interface
 {
     
     /// <summary>
@@ -6,6 +8,11 @@
     /// </summary>
     public interface IResponseData
     {
+        /// <summary>
+        /// コマンド種類
+        /// </summary>
+        CommandType CommandType { get; }
+
         /// <summary>
         /// レスポンス実行
         /// </summary>
