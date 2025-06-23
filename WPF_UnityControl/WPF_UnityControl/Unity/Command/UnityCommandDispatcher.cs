@@ -8,10 +8,14 @@ namespace WPF_UnityControl.Unity
     public class UnityCommandDispatcher
     {
         #region フィールド
-        /// <summary>　TCP操作インスタンス </summary>
+        /// <summary>
+        /// TCP操作インスタンス
+        /// </summary>
         private readonly TcpClientController _tcpController;
 
-        /// <summary> コマンド作成インスタンス </summary>
+        /// <summary>
+        /// コマンド作成インスタンス
+        /// </summary>
         private readonly CommandGenerator _cmdGenerator;
         #endregion
         #region プロパティ
