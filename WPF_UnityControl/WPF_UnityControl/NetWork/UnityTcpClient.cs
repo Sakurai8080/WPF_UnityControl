@@ -121,7 +121,7 @@ namespace WPF_UnityControl.NetWork
             }
             catch (IOException)
             {
-                OnUnityConnected($"通信が強制敵に切断されました。  UnityTcpClient-IOException ");
+                OnUnityConnected($"通信が強制的に切断されました。  UnityTcpClient-IOException ");
             }
             catch (Exception ex)
             {

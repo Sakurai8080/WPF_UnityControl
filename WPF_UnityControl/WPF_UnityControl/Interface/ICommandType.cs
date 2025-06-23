@@ -2,6 +2,9 @@
 
 namespace WPF_UnityControl.Interface
 {
+    /// <summary>
+    /// レスポンスクラスのインターフェース
+    /// </summary>
     public interface ICommandType
     {
         /// <summary>
