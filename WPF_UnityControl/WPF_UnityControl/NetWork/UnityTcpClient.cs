@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.IO;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows;
 
 namespace WPF_UnityControl.NetWork
 {
@@ -34,17 +33,25 @@ namespace WPF_UnityControl.NetWork
 
         #endregion
         #region デリゲート
-        /// <summary> 受信完了イベント </summary>
-        public Action<string> OnReceived = (json) => { };
+        /// <summary>
+        /// Jsonデータ受信イベント
+        /// </summary>
+        public Action<string> OnReceivedJson = (json) => { };
 
-        /// <summary> 受信完了イベント </summary>
+        /// <summary>
+        /// 接続状態メッセージイベント
+        /// </summary>
         public Action<string> OnUnityConnected = (msg) => { };
 
-        /// <summary> 受信完了イベント </summary>
-        public Action<bool> IsSending = (isSend) => { };
-
-        /// <summary> 受信完了イベント </summary>
+        /// <summary>
+        /// 接続状態イベント
+        /// </summary>
         public Action<bool> OnConnected = (onConnected) => { };
+
+        /// <summary>
+        /// コマンド送信中イベント
+        /// </summary>
+        public Action<bool> IsSending = (isSend) => { };
         #endregion
 
         /// <summary>
@@ -55,7 +62,7 @@ namespace WPF_UnityControl.NetWork
             try
             {
                 if (_client?.Connected == true)
-                {
+                {　// 接続中の場合は切断
                     Dispose();
                     OnConnected(false);
                     OnUnityConnected($"Unity接続 >>> 切断しました。");
@@ -73,9 +80,9 @@ namespace WPF_UnityControl.NetWork
 
                 OnConnected(true);
             }
-            catch (SocketException e)
+            catch (SocketException)
             {
-                OnUnityConnected($"Unity接続 >>> 接続に失敗しました。\r\n{e.Message}");
+                OnUnityConnected($"Unity接続 >>> 接続に失敗しました。");
             }
             finally
             {
@@ -95,10 +102,9 @@ namespace WPF_UnityControl.NetWork
             IsSending(true);
 
             var buffer = new byte[4096];
-
             try
             {
-                while (_client?.Connected == true)
+                while (_client != null &&　_client.Connected)
                 {
                     var bytesRead = await _stream.ReadAsync(buffer, 0, buffer.Length);
 
@@ -109,14 +115,13 @@ namespace WPF_UnityControl.NetWork
                     string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     if (!string.IsNullOrEmpty(receivedJson))
                     { // 受信があったときのイベント発行
-                        OnReceived?.Invoke(receivedJson);
+                        OnReceivedJson?.Invoke(receivedJson);
                     }
                 }
-
-                if (_client?.Connected == true) 
-
-                OnConnected(false);
-                OnUnityConnected($"Unity接続 >>> 切断されました。");
+            }
+            catch (IOException)
+            {
+                OnUnityConnected($"通信が強制敵に切断されました。  UnityTcpClient-IOException ");
             }
             catch (Exception ex)
             {
@@ -125,9 +130,14 @@ namespace WPF_UnityControl.NetWork
             finally
             {
                 IsSending(false);
+                OnConnected(false);
+                Dispose();
             }
         }
 
+        /// <summary>
+        /// 接続破棄
+        /// </summary>
         public void Close()
         {
             _stream?.Close();
@@ -136,6 +146,9 @@ namespace WPF_UnityControl.NetWork
             _client = null;
         }
 
+        /// <summary>
+        /// オブジェクト破棄時
+        /// </summary>
         public void Dispose()
         {
             Close();
