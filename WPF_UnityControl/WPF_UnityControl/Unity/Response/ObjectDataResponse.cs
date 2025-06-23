@@ -5,17 +5,34 @@ using WPF_UnityControl.Events;
 using WPF_UnityControl.Interface;
 using WPF_UnityControl.JsonPoco;
 using WPF_UnityControl.Models;
+using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Response
 {
-    public class ObjectDataResponse : BaseResponse, IResponseData
+    /// <summary>
+    /// ゲームオブジェクトデータのレスポンスクラス
+    /// </summary>
+    public class ObjectDataResponse : BaseResponse, IResponseData, ICommandType
     {
+
+        #region プロパティ
+        /// <summary>
+        /// コマンドタイプ
+        /// </summary>
+        public CommandType CommandType => CommandType.GET_OBJECT_DATA;
+        #endregion
+        #region コンストラクタ
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="eventAggregator">イベント通信監理</param>
         public ObjectDataResponse(IEventAggregator eventAggregator) : base(eventAggregator) { }
+        #endregion
 
         /// <summary>
         /// レスポンス処理の実行
         /// </summary>
-        /// <param name="json"></param>
+        /// <param name="json">受信したJson</param>
         public void Execute(string json)
         {
             // Jsonを配列に変換
@@ -27,6 +44,10 @@ namespace WPF_UnityControl.Response
             }
         }
 
+        /// <summary>
+        /// レスポンスのJsonファイルからゲームオブジェクトモデルにマッピング
+        /// </summary>
+        /// <param name="json">レスポンスのJsonデータ</param>
         private void ResponseToObjectData(string[] json)
         {
             var goJson = JsonConvert.DeserializeObject<JsonGameObject>(json[0]);
@@ -34,7 +55,7 @@ namespace WPF_UnityControl.Response
             if (goJson != null)
             {
                 var gameObjectData = new GameObjectModel
-                {
+                { // JsonPOCOをモデルクラスにマッピング
                     Name = goJson.Name,
                     Tag = goJson.Tag,
                     Layer = goJson.Layer,
@@ -64,7 +85,7 @@ namespace WPF_UnityControl.Response
                 };
 
                 if (gameObjectData != null)
-                {
+                { // ゲームオブジェクトデータのイベント発行
                     _eventAggregator.GetEvent<GameObjectDataFetchedEvent>().Publish(gameObjectData);
                 }
             }

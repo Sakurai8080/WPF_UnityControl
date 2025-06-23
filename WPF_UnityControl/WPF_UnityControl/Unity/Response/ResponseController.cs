@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Diagnostics;
 using WPF_UnityControl.Interface;
-using WPF_UnityControl.Response;
 
 namespace WPF_UnityControl.Unity
 {
@@ -10,28 +9,35 @@ namespace WPF_UnityControl.Unity
     /// </summary>
     public class ResponseController
     {
-        /// <summary> コマンドタイプとレスポンス処理実行の紐づけ </summary>
-        private readonly Dictionary<CommandType, IResponseData> _handleDic = new();
-
-
-        public Action<string> OnResponseReceive = (msg) => { };
-
-        public ResponseController(SceneListResponse sceneRes, HierarchyResponse hierarchyRes, ObjectDataResponse objRes)
-        {
-            ResponceCommandRegister(CommandType.SCENE_FETCH, sceneRes);
-            ResponceCommandRegister(CommandType.FETCH_HIERARCHY, hierarchyRes);
-            ResponceCommandRegister(CommandType.GET_OBJECT_DATA, objRes);
-        }
-
+        #region フィールド
         /// <summary>
-        /// 辞書への登録
+        /// コマンドタイプとレスポンス処理実行に紐づけ
         /// </summary>
-        /// <param name="type">コマンドの種類</param>
-        /// <param name="handle">Execute実行インスタンス</param>
-        private void ResponceCommandRegister(CommandType type, IResponseData handle)
+        private readonly Dictionary<CommandType, IResponseData> _handleDic = new();
+        #endregion
+        #region イベント
+        /// <summary>
+        /// レスポンス受け取りメッセージイベント
+        /// </summary>
+        public Action<string> OnResponseReceive = (msg) => { };
+        #endregion
+        #region コンストラクタ
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="handlers">全レスポンスクラス</param>
+        public ResponseController(IEnumerable<IResponseData> handlers)
         {
-            _handleDic[type] = handle;
+
+            foreach (var handler in handlers)
+            {
+                if (handler is ICommandType typeHandler)
+                {
+                    _handleDic[typeHandler.CommandType] = handler;
+                }
+            }
         }
+        #endregion
 
         /// <summary>
         /// レスポンスの確認と処理のハンドリング
