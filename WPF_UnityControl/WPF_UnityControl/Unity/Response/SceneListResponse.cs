@@ -9,7 +9,7 @@ namespace WPF_UnityControl.Response
     /// <summary>
     /// シーン一覧専用レスポンスクラス
     /// </summary>
-    public class SceneListResponse : BaseResponse, IResponseData, ICommandType
+    public class SceneListResponse : BaseResponse, IResponseData
     {
         #region プロパティ
         /// <summary>

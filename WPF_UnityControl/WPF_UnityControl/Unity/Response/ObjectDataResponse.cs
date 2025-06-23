@@ -12,7 +12,7 @@ namespace WPF_UnityControl.Response
     /// <summary>
     /// ゲームオブジェクトデータのレスポンスクラス
     /// </summary>
-    public class ObjectDataResponse : BaseResponse, IResponseData, ICommandType
+    public class ObjectDataResponse : BaseResponse, IResponseData
     {
 
         #region プロパティ

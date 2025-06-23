@@ -10,7 +10,7 @@ namespace WPF_UnityControl.Response
     /// <summary>
     /// ヒエラルキーのレスポンスを処理するクラス
     /// </summary>
-    public class HierarchyResponse : BaseResponse, IResponseData, ICommandType
+    public class HierarchyResponse : BaseResponse, IResponseData
     {
         #region プロパティ
         /// <summary>

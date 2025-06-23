@@ -28,13 +28,9 @@ namespace WPF_UnityControl.Unity
         /// <param name="handlers">全レスポンスクラス</param>
         public ResponseController(IEnumerable<IResponseData> handlers)
         {
-
             foreach (var handler in handlers)
             {
-                if (handler is ICommandType typeHandler)
-                {
-                    _handleDic[typeHandler.CommandType] = handler;
-                }
+                _handleDic[handler.CommandType] = handler;
             }
         }
         #endregion
@@ -59,7 +55,7 @@ namespace WPF_UnityControl.Unity
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine($"レスポンスハンドリング中にエラー : {ex}");
             }
