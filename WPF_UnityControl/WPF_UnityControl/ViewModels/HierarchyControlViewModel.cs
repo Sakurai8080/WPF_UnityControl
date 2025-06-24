@@ -13,10 +13,14 @@ namespace WPF_UnityControl.ViewModels
     public class HierarchyControlViewModel : IDisposable
     {
         #region フィールド
-        /// <summary> 購読管理オブジェクト </summary>
+        /// <summary> 
+        /// 購読管理オブジェクト 
+        /// </summary>
         private readonly CompositeDisposable _disposables = new();
 
-        /// <summary> イベント仲介オブジェクト </summary>
+        /// <summary> 
+        /// イベント仲介オブジェクト 
+        /// </summary>
         private readonly IEventAggregator _eventAggregator;
 
         /// <summary>
@@ -36,6 +40,11 @@ namespace WPF_UnityControl.ViewModels
         public ReactivePropertySlim<string> SelectedName { get; } = new ReactivePropertySlim<string>();
         #endregion
         #region コンストラクタ
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="eventAggregator">イベント通信管理</param>
+        /// <param name="controller">Unity操作</param>
         public HierarchyControlViewModel(IEventAggregator eventAggregator, UnityController controller)
         {
             _eventAggregator = eventAggregator;
@@ -43,17 +52,20 @@ namespace WPF_UnityControl.ViewModels
 
             _eventAggregator.GetEvent<HierarchyFetchedEvent>()
                             .Subscribe(nodes =>
-                            {
+                            { // ヒエラルキー取得イベント購読
                                 HierarchyTree.Value = nodes;
                             })
                             .AddTo(_disposables);
 
-            SelectedName.Subscribe( async name => await _controller.FetchObjectData(name));
+            SelectedName.Subscribe(async name =>
+                        { // ヒエラルキーを選択したらゲームオブジェクトデータを取得
+                            await _controller.FetchObjectData(name);
+                        }).AddTo(_disposables);
         }
         #endregion
 
         /// <summary>
-        /// 破棄
+        /// 購読破棄
         /// </summary>
         public void Dispose()
         {

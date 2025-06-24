@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 using WPF_UnityControl.Control;
@@ -10,7 +11,6 @@ namespace WPF_UnityControl.ViewModels
 {
     public class MainWindowViewModel : BindableBase
     {
-
         /// <summary>
         /// 画面遷移に関する機能
         /// </summary>
@@ -30,6 +30,5 @@ namespace WPF_UnityControl.ViewModels
             // アプリ起動時にMainPageを指定
             _regionManager.RegisterViewWithRegion("ContentRegion", nameof(MainContentPage));
         }
-
     }
 }
