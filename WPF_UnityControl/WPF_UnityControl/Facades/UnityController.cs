@@ -38,7 +38,7 @@ namespace WPF_UnityControl.Facades
         {
             _unityDsp = commandDispatcher;
 
-            _unityDsp.TCPController.OnUnityConnected += (msg) =>
+            _unityDsp.TCPController.OnUnityConnectMsg += (msg) =>
             { // Unity接続メッセージイベント登録
                 OnUnityConnected(msg);
             };
