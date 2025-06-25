@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.IO;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows;
 
 namespace WPF_UnityControl.NetWork
 {
@@ -30,10 +29,29 @@ namespace WPF_UnityControl.NetWork
 
         /// <summary> 接続中フラグ </summary>
         public bool IsConnected => _client?.Connected ?? false;
+
+
         #endregion
         #region デリゲート
-        /// <summary> 受信完了イベント </summary>
-        public Action<string> OnReceived = (json) => { };
+        /// <summary>
+        /// Jsonデータ受信イベント
+        /// </summary>
+        public Action<string> OnReceivedJson = (json) => { };
+
+        /// <summary>
+        /// 接続状態メッセージイベント
+        /// </summary>
+        public Action<string> OnUnityConnected = (msg) => { };
+
+        /// <summary>
+        /// 接続状態イベント
+        /// </summary>
+        public Action<bool> OnConnected = (onConnected) => { };
+
+        /// <summary>
+        /// コマンド送信中イベント
+        /// </summary>
+        public Action<bool> IsSending = (isSend) => { };
         #endregion
 
         /// <summary>
@@ -43,19 +61,32 @@ namespace WPF_UnityControl.NetWork
         {
             try
             {
-                if (_client?.Connected == true) return;
+                if (_client?.Connected == true)
+                {　// 接続中の場合は切断
+                    Dispose();
+                    OnConnected(false);
+                    OnUnityConnected($"Unity接続 >>> 切断しました。");
+                    return;
+                }
 
+                IsSending(true);
+                await Task.Delay(2000);
                 _client = new TcpClient();
                 await _client.ConnectAsync(SERVER_IP, SERVER_PORT);
                 _stream = _client.GetStream();
                 _ = ReceiveLoopAsync(); // 受信監視開始
 
-                Debug.WriteLine($"接続完了 :{SERVER_IP} - {SERVER_PORT}");
-                MessageBox.Show(App.Current.MainWindow, $"接続完了 :{SERVER_IP} - {SERVER_PORT}");
+                OnUnityConnected($"Unity接続 >>>接続しました");
+
+                OnConnected(true);
             }
-            catch (SocketException e)
+            catch (SocketException)
             {
-                MessageBox.Show(App.Current.MainWindow, $"サーバー接続時にエラーが発生しました : {e.Message}");
+                OnUnityConnected($"Unity接続 >>> 接続に失敗しました。");
+            }
+            finally
+            {
+                IsSending(false);
             }
         }
 
@@ -64,32 +95,49 @@ namespace WPF_UnityControl.NetWork
         /// </summary>
         private async Task ReceiveLoopAsync()
         {
+
             if (_stream == null)
                 return;
 
-            var buffer = new byte[4096];
-            var stringBuilder = new StringBuilder();
+            IsSending(true);
 
+            var buffer = new byte[4096];
             try
             {
-                while (_client?.Connected == true)
+                while (_client != null &&　_client.Connected)
                 {
-                    int bytesRead = await _stream.ReadAsync(buffer, 0, buffer.Length);
+                    var bytesRead = await _stream.ReadAsync(buffer, 0, buffer.Length);
+
+
                     if (bytesRead == 0) break;
+
 
                     string receivedJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     if (!string.IsNullOrEmpty(receivedJson))
                     { // 受信があったときのイベント発行
-                        OnReceived?.Invoke(receivedJson);
+                        OnReceivedJson?.Invoke(receivedJson);
                     }
                 }
             }
+            catch (IOException)
+            {
+                OnUnityConnected($"通信が強制的に切断されました。  UnityTcpClient-IOException ");
+            }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                OnUnityConnected($"データ受信確認中、異常が発生ました。\r\n{ex}");
+            }
+            finally
+            {
+                IsSending(false);
+                OnConnected(false);
+                Dispose();
             }
         }
 
+        /// <summary>
+        /// 接続破棄
+        /// </summary>
         public void Close()
         {
             _stream?.Close();
@@ -98,6 +146,9 @@ namespace WPF_UnityControl.NetWork
             _client = null;
         }
 
+        /// <summary>
+        /// オブジェクト破棄時
+        /// </summary>
         public void Dispose()
         {
             Close();

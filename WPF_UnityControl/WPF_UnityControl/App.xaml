@@ -75,12 +75,6 @@
             </Style>
             <!--#endregion-->
 
-            <!--  region TextBlock  -->
-            <!--<Style TargetType="Button">
-                <Setter Property="BorderBrush" Value="{StaticResource 900Blush}" />
-            </Style>-->
-            <!--#endregion-->
-
             <!--#endregion-->
             <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource 800Blush}" />
