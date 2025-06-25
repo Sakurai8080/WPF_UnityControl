@@ -12,11 +12,24 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="280*" />
         </Grid.RowDefinitions>
-        <Grid VerticalAlignment="Bottom">
-            <TextBlock Text="ログ情報" />
+        <Grid>
+            <TextBlock VerticalAlignment="Center" Text="ログ情報" />
+            <Button
+                Width="60"
+                Height="23"
+                Margin="0,0,0,5"
+                Padding="0,0,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Command="{Binding LogClear}">
+                <TextBlock
+                    Padding="0,1,0,0"
+                    FontSize="12"
+                    Text="クリア" />
+            </Button>
         </Grid>
         <Border
             Grid.Row="1"

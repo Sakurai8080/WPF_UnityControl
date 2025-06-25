@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Windows.Interop;
 using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.NetWork
@@ -10,36 +9,56 @@ namespace WPF_UnityControl.NetWork
     public class TcpClientController 
     {
         #region フィールド
-        /// <summary> Unity接続インスタンス</summary>
+        /// <summary> 
+        /// Unity接続インスタンス
+        /// </summary>
         private readonly UnityTcpClient _tcp;
 
+        /// <summary>
+        /// レスポンス操作クラスインスタンス
+        /// </summary>
         private readonly ResponseController _resCon;
         #endregion
         #region デリゲート
-        public Action<string> OnJsonResponse = (json) => { };
+        /// <summary>
+        /// 接続状態メッセージイベント
+        /// </summary>
+        public Action<string> OnUnityConnectMsg = (msg) => { };
+        
+        /// <summary>
+        /// 接続状態イベント
+        /// </summary>
+        public Action<bool> OnConnected = (onConnected) => { };
 
-        public Action<string> OnUnityConnected = (json) => { };
-
+        /// <summary>
+        /// レスポンスデータ受信イベント
+        /// </summary>
         public Action<string> OnResponseReceive = (json) => { };
 
+        /// <summary>
+        /// コマンド送信中イベント
+        /// </summary>
         public Action<bool> IsSending = (isSending) => { };
-
-        public Action<bool> OnConnected = (onConnected) => { };
         #endregion
         #region コンストラクタ
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        /// <param name="resCon">レスポンス操作クラス DI</param>
         public TcpClientController(ResponseController resCon)
         {
             _resCon = resCon;
             _tcp = new UnityTcpClient();
 
-            _tcp.OnReceived += json =>
+            #region イベント登録
+            _tcp.OnReceivedJson += json =>
             { // Jsonの受け取り
                 _resCon.HandleResponse(json);
             };
 
             _tcp.OnUnityConnected += (msg) =>
-            { // Unityの接続状態
-                OnUnityConnected($"{msg}\r\n");
+            { // Unityの接続状態メッセージ管理
+                OnUnityConnectMsg($"{msg}\r\n");
             };
 
             _resCon.OnResponseReceive += (msg) =>
@@ -49,14 +68,15 @@ namespace WPF_UnityControl.NetWork
             };
 
             _tcp.IsSending += (isSend) =>
-            { // Unityレスポンスデータ表示
+            { // Unityへの送信状態管理
                 IsSending(isSend);
             };
 
             _tcp.OnConnected += (onConnected) =>
-            {
+            { // UnitY接続状態管理
                 OnConnected(onConnected);
             };
+            #endregion
         }
         #endregion
 
@@ -64,7 +84,7 @@ namespace WPF_UnityControl.NetWork
         /// TCPサーバーへの接続
         /// </summary>
         public async Task ConnectToUnityAsync()
-        {
+        { 
             await _tcp.ConnectAsync();
         }
 

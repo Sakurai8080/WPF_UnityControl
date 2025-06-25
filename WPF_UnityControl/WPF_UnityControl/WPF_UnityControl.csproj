@@ -10,13 +10,9 @@
 
   <ItemGroup>
     <Compile Remove="Test\**" />
-    <Compile Remove="Views\Pages\**" />
     <EmbeddedResource Remove="Test\**" />
-    <EmbeddedResource Remove="Views\Pages\**" />
     <None Remove="Test\**" />
-    <None Remove="Views\Pages\**" />
     <Page Remove="Test\**" />
-    <Page Remove="Views\Pages\**" />
   </ItemGroup>
 
   <ItemGroup>
