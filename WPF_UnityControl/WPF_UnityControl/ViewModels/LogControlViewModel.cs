@@ -41,9 +41,9 @@ namespace WPF_UnityControl.ViewModels
         {
             _controller = controller;
 
-            _controller.OnUnityConnected += (msg) =>
+            _controller.OnUnityConnected += (s, e) =>
             { // Unity接続メッセージイベント登録
-                Log.Value += msg;
+                Log.Value += $"{e.Message}\r\n";
             };
 
             _controller.OnResponseReceive += (msg) =>
