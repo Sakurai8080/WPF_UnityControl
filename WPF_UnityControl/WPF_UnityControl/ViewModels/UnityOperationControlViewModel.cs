@@ -111,9 +111,9 @@ namespace WPF_UnityControl.ViewModels
                 IsSending.Value = state;
             };
 
-            _controller.OnConnected += (state) =>
+            _controller.OnUnityConnected += (s, e) =>
             { // 接続フラグ変更イベントの登録
-                OnConnected.Value = state;
+                OnConnected.Value = e.IsConnected;
             };
         }
         #endregion

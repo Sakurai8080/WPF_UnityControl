@@ -16,7 +16,7 @@ namespace WPF_UnityControl.Facades
         /// <summary>
         /// Unity接続イベント 
         /// </summary>
-        public Action<string> OnUnityConnected = (msg) => { };
+        public event EventHandler<UnityConnectionEventArgs> OnUnityConnected = (s, e) => { };
 
         /// <summary>
         /// レスポンス受信メッセージイベント
@@ -27,20 +27,15 @@ namespace WPF_UnityControl.Facades
         /// Unity送信中イベント
         /// </summary>
         public Action<bool> OnCommandSending = (isSending) => { };
-
-        /// <summary>
-        /// 接続イベント
-        /// </summary>
-        public Action<bool> OnConnected = (onConnected) => { };
         #endregion
         #region コンストラクタ
         public UnityController(UnityCommandDispatcher commandDispatcher)
         {
             _unityDsp = commandDispatcher;
 
-            _unityDsp.TCPController.OnUnityConnectMsg += (msg) =>
+            _unityDsp.TCPController.UnityConnectionChanged += (s, e) =>
             { // Unity接続メッセージイベント登録
-                OnUnityConnected(msg);
+                OnUnityConnected?.Invoke(s, e);
             };
 
             _unityDsp.TCPController.OnResponseReceive += (msg) =>
@@ -51,11 +46,6 @@ namespace WPF_UnityControl.Facades
             _unityDsp.TCPController.IsSending += (isSending) =>
             { // コマンド送信中イベント登録
                 OnCommandSending(isSending);
-            };
-
-            _unityDsp.TCPController.OnConnected += (onConnected) =>
-            { // 接続イベント登録
-                OnConnected(onConnected);
             };
         }
         #endregion
