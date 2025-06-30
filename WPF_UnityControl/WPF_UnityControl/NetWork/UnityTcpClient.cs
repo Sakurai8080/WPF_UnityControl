@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.NetWork
 {
@@ -24,29 +25,26 @@ namespace WPF_UnityControl.NetWork
         private NetworkStream? _stream;
         #endregion
         #region プロパティ
-        /// <summary> データ送受信ストリーム </summary>
+        /// <summary> 
+        /// データ送受信ストリーム 
+        /// </summary>
         public NetworkStream? Stream => _stream;
 
-        /// <summary> 接続中フラグ </summary>
+        /// <summary> 
+        /// 接続中フラグ 
+        /// </summary>
         public bool IsConnected => _client?.Connected ?? false;
-
-
         #endregion
         #region デリゲート
+        /// <summary>
+        /// 接続状態イベント
+        /// </summary>
+        public event EventHandler<UnityConnectionEventArgs> UnityConnectionChanged = (s, e) => { };
+
         /// <summary>
         /// Jsonデータ受信イベント
         /// </summary>
         public Action<string> OnReceivedJson = (json) => { };
-
-        /// <summary>
-        /// 接続状態メッセージイベント
-        /// </summary>
-        public Action<string> OnUnityConnected = (msg) => { };
-
-        /// <summary>
-        /// 接続状態イベント
-        /// </summary>
-        public Action<bool> OnConnected = (onConnected) => { };
 
         /// <summary>
         /// コマンド送信中イベント
@@ -64,8 +62,7 @@ namespace WPF_UnityControl.NetWork
                 if (_client?.Connected == true)
                 {　// 接続中の場合は切断
                     Dispose();
-                    OnConnected(false);
-                    OnUnityConnected($"Unity接続 >>> 切断しました。");
+                    UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, "Unity接続 >>> 切断しました。"));
                     return;
                 }
 
@@ -75,14 +72,11 @@ namespace WPF_UnityControl.NetWork
                 await _client.ConnectAsync(SERVER_IP, SERVER_PORT);
                 _stream = _client.GetStream();
                 _ = ReceiveLoopAsync(); // 受信監視開始
-
-                OnUnityConnected($"Unity接続 >>>接続しました");
-
-                OnConnected(true);
+                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(true, "Unity接続 >>>接続しました。"));
             }
             catch (SocketException)
             {
-                OnUnityConnected($"Unity接続 >>> 接続に失敗しました。");
+                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, "Unity接続 >>> 接続に失敗しました。Unityを実行してください。"));
             }
             finally
             {
@@ -121,16 +115,16 @@ namespace WPF_UnityControl.NetWork
             }
             catch (IOException)
             {
-                OnUnityConnected($"通信が強制的に切断されました。  UnityTcpClient-IOException ");
+                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, $"通信が強制的に切断されました。[ UnityTcpClient-IOException ]"));
             }
             catch (Exception ex)
             {
-                OnUnityConnected($"データ受信確認中、異常が発生ました。\r\n{ex}");
+                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, $"データ受信確認中、異常が発生ました。\r\n{ex}"));
             }
             finally
             {
                 IsSending(false);
-                OnConnected(false);
+                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, $"受信処理終了により切断しました。"));
                 Dispose();
             }
         }

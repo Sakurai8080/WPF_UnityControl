@@ -21,15 +21,10 @@ namespace WPF_UnityControl.NetWork
         #endregion
         #region デリゲート
         /// <summary>
-        /// 接続状態メッセージイベント
-        /// </summary>
-        public Action<string> OnUnityConnectMsg = (msg) => { };
-        
-        /// <summary>
         /// 接続状態イベント
         /// </summary>
-        public Action<bool> OnConnected = (onConnected) => { };
-
+        public event EventHandler<UnityConnectionEventArgs> UnityConnectionChanged = (s, e) => { };
+        
         /// <summary>
         /// レスポンスデータ受信イベント
         /// </summary>
@@ -56,9 +51,9 @@ namespace WPF_UnityControl.NetWork
                 _resCon.HandleResponse(json);
             };
 
-            _tcp.OnUnityConnected += (msg) =>
+            _tcp.UnityConnectionChanged += (s ,e) =>
             { // Unityの接続状態メッセージ管理
-                OnUnityConnectMsg($"{msg}\r\n");
+                UnityConnectionChanged?.Invoke(s, e);
             };
 
             _resCon.OnResponseReceive += (msg) =>
@@ -70,11 +65,6 @@ namespace WPF_UnityControl.NetWork
             _tcp.IsSending += (isSend) =>
             { // Unityへの送信状態管理
                 IsSending(isSend);
-            };
-
-            _tcp.OnConnected += (onConnected) =>
-            { // UnitY接続状態管理
-                OnConnected(onConnected);
             };
             #endregion
         }
