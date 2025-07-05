@@ -7,6 +7,7 @@ using WPF_UnityControl.Response;
 using WPF_UnityControl.Unity;
 using WPF_UnityControl.NetWork;
 using WPF_UnityControl.Interface;
+using WPF_UnityControl.Models;
 
 namespace WPF_UnityControl;
 
@@ -34,11 +35,13 @@ public partial class App : PrismApplication
         containerRegistry.RegisterSingleton<TcpClientController>();
         containerRegistry.RegisterSingleton<UnityCommandDispatcher>();
         containerRegistry.RegisterSingleton<UnityController>();
+        containerRegistry.RegisterSingleton<GameObjectDataStore>();
 
         containerRegistry.RegisterForNavigation<MainContentPage>();
         containerRegistry.RegisterForNavigation<UnityOperationControl, UnityOperationControlViewModel>();
         containerRegistry.RegisterForNavigation<SceneListControl, SceneListControlViewModel>();
         containerRegistry.RegisterForNavigation<HierarchyControl, HierarchyControlViewModel>();
+        containerRegistry.RegisterForNavigation<FileHandlerControl, FileHandlerControlViewModel>();
         containerRegistry.RegisterForNavigation<ObjectDetailControl, ObjectDetailControlViewModel>();
         containerRegistry.RegisterForNavigation<LogControl, LogControlViewModel>();
     }
