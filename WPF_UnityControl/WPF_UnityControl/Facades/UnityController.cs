@@ -1,4 +1,4 @@
-﻿using WPF_UnityControl.JsonPoco;
+﻿using WPF_UnityControl.Converter;
 using WPF_UnityControl.Models;
 using WPF_UnityControl.Unity;
 
@@ -99,35 +99,7 @@ namespace WPF_UnityControl.Facades
         {
             if (objInfo != null)
             {
-                var jsonObj = new JsonGameObject
-                {
-                    Name = objInfo.Name,
-                    Tag = objInfo.Tag,
-                    Layer = objInfo.Layer,
-                    IsActive = objInfo.IsActive,
-                    Transform = new JsonTransform
-                    {
-                        Position = new JsonVector3
-                        {
-                            X = objInfo.Transform.Position.X.Value,
-                            Y = objInfo.Transform.Position.Y.Value,
-                            Z = objInfo.Transform.Position.Z.Value,
-                        },
-                        Rotation = new JsonVector3
-                        {
-                            X = objInfo.Transform.Rotation.X.Value,
-                            Y = objInfo.Transform.Rotation.Y.Value,
-                            Z = objInfo.Transform.Rotation.Z.Value,
-                        },
-                        Scale = new JsonVector3
-                        {
-                            X = objInfo.Transform.Scale.X.Value,
-                            Y = objInfo.Transform.Scale.Y.Value,
-                            Z = objInfo.Transform.Scale.Z.Value,
-                        }
-
-                    }
-                };
+                var jsonObj = GameObjectConverter.ToJson(objInfo);
                 _unityDsp?.BeginSendCommand(CommandType.SET_OBJECT_DATA, jsonObj);
             }
         }
