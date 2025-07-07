@@ -114,6 +114,7 @@
 
             <Button
                 Margin="0,130,0,0"
+                Command="{Binding ValueClearCommand}"
                 Content="データクリア"
                 Style="{StaticResource ControlButton}" />
             <Button

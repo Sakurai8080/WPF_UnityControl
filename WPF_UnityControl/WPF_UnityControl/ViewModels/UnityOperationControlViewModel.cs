@@ -67,6 +67,11 @@ namespace WPF_UnityControl.ViewModels
         /// 現在のヒエラルキー取得コマンド 
         /// </summary>
         public ReactiveCommandSlim FetchSceneHierarchy { get; } = new ReactiveCommandSlim();
+
+        /// <summmary>
+        /// 全値のクリアボタン
+        /// </summary>
+        public ReactiveCommandSlim ValueClearCommand { get; } = new ReactiveCommandSlim();
         #endregion
         #region コンストラクタ
         /// <summary>
@@ -105,6 +110,11 @@ namespace WPF_UnityControl.ViewModels
                                { // 選択中シーンのヒエラルキー取得ボタン押下の購読
                                    await _controller.FetchUnityHierarchy();
                                }).AddTo(_disposables);
+
+            ValueClearCommand.Subscribe(_ =>
+                             { // 値のクリアイベント発行
+                                 _eventAggregator.GetEvent<ClearAllValuesEvent>().Publish();
+                             }).AddTo(_disposables);
 
             _controller.OnCommandSending += (state) =>
             { // コマンド送信イベントの登録

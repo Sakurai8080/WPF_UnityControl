@@ -62,8 +62,19 @@ namespace WPF_UnityControl.ViewModels
                                   { // ゲームオブジェクトのデータ適用ボタン購読
                                       _controller.SetGameObjectData(GameObjectData.Value);
                                   }).AddTo(_disposables);
+
+            _eventAggregator.GetEvent<ClearAllValuesEvent>()
+                            .Subscribe(ClearValues).AddTo(_disposables); // 値クリアイベント購読
         }
         #endregion
+
+        /// <summary>
+        /// 値のクリア
+        /// </summary>
+        private void ClearValues()
+        {
+            GameObjectData.Value = null;
+        }
 
         /// <summary>
         /// 購読破棄
