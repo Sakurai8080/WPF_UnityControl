@@ -6,8 +6,10 @@
     xmlns:local="clr-namespace:WPF_UnityControl.Control"
     xmlns:materialDesign="[materialDesign ]http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
     d:DesignHeight="160"
     d:DesignWidth="160"
+    prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -29,11 +31,13 @@
                     Height="43"
                     Margin="13,19,13,0"
                     BorderThickness="0"
+                    Command="{Binding ObjectSaveCommand}"
                     Content="保存" />
                 <Button
                     Height="43"
                     Margin="13,18,13,0"
                     BorderThickness="0"
+                    Command="{Binding ObjectLoadCommand}"
                     Content="読込" />
             </StackPanel>
         </GroupBox>

@@ -1,6 +1,4 @@
-﻿using Reactive.Bindings;
-
-namespace WPF_UnityControl.Models
+﻿namespace WPF_UnityControl.Models
 {
     /// <summary>
     /// Vector3 UI表示用モデルクラス
@@ -10,16 +8,16 @@ namespace WPF_UnityControl.Models
         /// <summary>
         /// Vector3 X
         /// </summary>
-        public ReactivePropertySlim<float> X { get; set; } = new ReactivePropertySlim<float>();
+        public float X { get; set; }
 
         /// <summary>
         /// Vector3 Y
         /// </summary>
-        public ReactivePropertySlim<float> Y { get; set; } = new ReactivePropertySlim<float>();
+        public float Y { get; set; }
 
         /// <summary>
         /// Vector3 Z
         /// </summary>
-        public ReactivePropertySlim<float> Z { get; set; } = new ReactivePropertySlim<float>();
+        public float Z { get; set; }
     }
 }

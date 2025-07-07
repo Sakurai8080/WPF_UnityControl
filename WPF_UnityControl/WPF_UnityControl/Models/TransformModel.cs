@@ -9,16 +9,16 @@ namespace WPF_UnityControl.Models
         /// <summary>
         /// ゲームオブジェクトPosition
         /// </summary>
-        public Vector3Model Position { get; set; } = new Vector3Model();
+        public Vector3Model? Position { get; set; } = new Vector3Model();
 
         /// <summary>
         /// ゲームオブジェクトRotation
         /// </summary>
-        public Vector3Model Rotation { get; set; } = new Vector3Model();
+        public Vector3Model? Rotation { get; set; } = new Vector3Model();
 
         /// <summary>
         /// ゲームオブジェクトScale
         /// </summary>
-        public Vector3Model Scale { get; set; } = new Vector3Model();
+        public Vector3Model? Scale { get; set; } = new Vector3Model();
     }
 }

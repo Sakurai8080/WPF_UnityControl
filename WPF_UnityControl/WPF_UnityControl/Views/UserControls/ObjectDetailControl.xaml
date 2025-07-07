@@ -60,7 +60,7 @@
 
             <StackPanel Margin="0,10" Orientation="Horizontal">
                 <TextBlock Text="TAG" />
-                <ComboBox
+                <TextBlock
                     Width="100"
                     Height="20"
                     Margin="10,0,0,0"
@@ -75,7 +75,7 @@
                 Margin="0,10"
                 Orientation="Horizontal">
                 <TextBlock Text="LAYER" />
-                <ComboBox
+                <TextBlock
                     Width="100"
                     Height="20"
                     Margin="10,0,0,0"
@@ -100,17 +100,17 @@
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Position.X.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Position.X}" />
                 <TextBlock Margin="10,0" Text="Y" />
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Position.Y.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Position.Y}" />
                 <TextBlock Margin="10,0" Text="Z" />
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Position.Z.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Position.Z}" />
             </StackPanel>
         </Grid>
 
@@ -130,17 +130,17 @@
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Rotation.X.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Rotation.X}" />
                 <TextBlock Margin="10,0" Text="Y" />
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Rotation.Y.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Rotation.Y}" />
                 <TextBlock Margin="10,0" Text="Z" />
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Rotation.Z.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Rotation.Z}" />
             </StackPanel>
         </Grid>
 
@@ -159,17 +159,17 @@
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Scale.X.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Scale.X}" />
                 <TextBlock Margin="10,0" Text="Y" />
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Scale.Y.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Scale.Y}" />
                 <TextBlock Margin="10,0" Text="Z" />
                 <TextBox
                     Width="72"
                     Background="{StaticResource AppBackGround}"
-                    Text="{Binding GameObjectData.Value.Transform.Scale.Z.Value}" />
+                    Text="{Binding GameObjectData.Value.Transform.Scale.Z}" />
             </StackPanel>
         </Grid>
 

@@ -34,7 +34,7 @@
         </Style>
 
         <Style
-            x:Key="ConnectButton"
+            x:Key="IndicatorButton"
             BasedOn="{StaticResource ControlButton}"
             TargetType="Button">
             <Style.Triggers>
@@ -48,9 +48,7 @@
                     <Setter Property="materialDesign:ButtonProgressAssist.IsIndicatorVisible" Value="False" />
                 </DataTrigger>
             </Style.Triggers>
-
         </Style>
-
     </UserControl.Resources>
 
     <Grid>
@@ -60,17 +58,32 @@
                 Height="45"
                 HorizontalAlignment="Center"
                 Source="/Resources/Logo.png" />
+
+            <Button Margin="0,20,0,0" Content="Unityシーン実行">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource IndicatorButton}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding OnConnected.Value}" Value="True">
+                                <Setter Property="IsEnabled" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding OnConnected.Value}" Value="False">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Button
                 x:Name="btConnect"
-                Margin="0,20,0,0"
+                Margin="0,15,0,0"
                 BorderThickness="0"
                 Command="{Binding ConnectStateCommand}"
                 IsEnabled="True">
                 <Button.Style>
-                    <Style BasedOn="{StaticResource ConnectButton}" TargetType="Button">
+                    <Style BasedOn="{StaticResource IndicatorButton}" TargetType="Button">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding OnConnected.Value}" Value="True">
-                                <Setter Property="Background" Value="SteelBlue" />
+                                <Setter Property="Background" Value="DarkOliveGreen" />
                                 <Setter Property="Content" Value="接続中" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding OnConnected.Value}" Value="False">
@@ -98,13 +111,10 @@
                 Command="{Binding FetchSceneHierarchy}"
                 Content="シーンヒエラルキー取得"
                 Style="{StaticResource ControlButton}" />
+
             <Button
-                Margin="0,136,0,0"
-                Content="シーンデータ保存"
-                Style="{StaticResource ControlButton}" />
-            <Button
-                Margin="0,15,0,0"
-                Content="シーンデータ読込"
+                Margin="0,130,0,0"
+                Content="データクリア"
                 Style="{StaticResource ControlButton}" />
             <Button
                 Margin="0,15,0,0"
