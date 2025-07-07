@@ -32,7 +32,7 @@ namespace WPF_UnityControl.ViewModels
         /// <summary>
         /// ゲームオブジェトのデータを保持するモデルクラス
         /// </summary>
-        public ReactivePropertySlim<GameObjectModel> GameObjectData { get; set; } = new();
+        public ReactivePropertySlim<GameObjectModel> GameObjectData { get;}
 
         /// <summary>
         /// ゲームオブジェクトの値変更ボタン
@@ -45,10 +45,12 @@ namespace WPF_UnityControl.ViewModels
         /// </summary>
         /// <param name="controller">Unity操作</param>
         /// <param name="eventAggregator">イベント通信管理</param>
-        public ObjectDetailControlViewModel(UnityController controller, IEventAggregator eventAggregator)
+        public ObjectDetailControlViewModel(UnityController controller, IEventAggregator eventAggregator, GameObjectDataStore dataStore)
         {
             _eventAggregator = eventAggregator;
             _controller = controller;
+
+            GameObjectData = dataStore.CurrentGameObjectData;
 
             _eventAggregator.GetEvent<GameObjectDataFetchedEvent>()
                             .Subscribe(goData =>

@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
-using Reactive.Bindings;
 using WPF_UnityControl.Base;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Interface;
 using WPF_UnityControl.JsonPoco;
-using WPF_UnityControl.Models;
+using WPF_UnityControl.Converter;
 using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.Response
@@ -54,35 +53,7 @@ namespace WPF_UnityControl.Response
 
             if (goJson != null)
             {
-                var gameObjectData = new GameObjectModel
-                { // JsonPOCOをモデルクラスにマッピング
-                    Name = goJson.Name,
-                    Tag = goJson.Tag,
-                    Layer = goJson.Layer,
-                    IsActive = goJson.IsActive,
-                    Transform = new TransformModel
-                    {
-                        Position = new Vector3Model
-                        {
-                            X = new ReactivePropertySlim<float>(goJson.Transform.Position.X),
-                            Y = new ReactivePropertySlim<float>(goJson.Transform.Position.Y),
-                            Z = new ReactivePropertySlim<float>(goJson.Transform.Position.Z),
-                        },
-                        Rotation = new Vector3Model
-                        {
-                            X = new ReactivePropertySlim<float>(goJson.Transform.Rotation.X),
-                            Y = new ReactivePropertySlim<float>(goJson.Transform.Rotation.Y),
-                            Z = new ReactivePropertySlim<float>(goJson.Transform.Rotation.Z),
-                        },
-                        Scale = new Vector3Model
-                        {
-                            X = new ReactivePropertySlim<float>(goJson.Transform.Scale.X),
-                            Y = new ReactivePropertySlim<float>(goJson.Transform.Scale.Y),
-                            Z = new ReactivePropertySlim<float>(goJson.Transform.Scale.Z),
-                        }
-
-                    }
-                };
+                var gameObjectData = GameObjectConverter.ToModel(goJson);
 
                 if (gameObjectData != null)
                 { // ゲームオブジェクトデータのイベント発行

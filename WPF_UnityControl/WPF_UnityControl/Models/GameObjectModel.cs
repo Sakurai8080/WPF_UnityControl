@@ -8,17 +8,17 @@
         /// <summary>
         /// オブジェクト名
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// オブジェクトタグ
         /// </summary>
-        public string Tag { get; set; }
+        public string? Tag { get; set; }
 
         /// <summary>
         /// オブジェクトレイヤー
         /// </summary>
-        public string Layer { get; set; }
+        public string? Layer { get; set; }
 
         /// <summary>
         /// アクティブフラグ
@@ -28,6 +28,6 @@
         /// <summary>
         /// トランスフォームデータ
         /// </summary>
-        public TransformModel Transform { get; set; }
+        public TransformModel? Transform { get; set; }
     }
 }
