@@ -35,13 +35,13 @@
             Grid.Row="1"
             BorderBrush="{StaticResource 900Blush}"
             BorderThickness="2">
-            <ScrollViewer>
+            <ScrollViewer x:Name="logScrollViewer">
                 <TextBlock
                     Background="#FF121212"
                     FontSize="16"
                     Foreground="Gray"
-                    Text="{Binding Log.Value}"
-                    TextWrapping="Wrap" />
+                    Text="{Binding Log.Value, NotifyOnTargetUpdated=True}"
+                    TextWrapping="Wrap" TargetUpdated="TextBlock_TargetUpdated" />
             </ScrollViewer>
         </Border>
     </Grid>
