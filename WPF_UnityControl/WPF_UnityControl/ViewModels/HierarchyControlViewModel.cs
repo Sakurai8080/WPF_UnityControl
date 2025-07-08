@@ -61,8 +61,19 @@ namespace WPF_UnityControl.ViewModels
                         { // ヒエラルキーを選択したらゲームオブジェクトデータを取得
                             await _controller.FetchObjectData(name);
                         }).AddTo(_disposables);
+
+            _eventAggregator.GetEvent<ClearAllValuesEvent>()
+                    .Subscribe(ClearValues).AddTo(_disposables); // 値クリアイベント購読
         }
         #endregion
+
+        /// <summary>
+        /// 値のクリア
+        /// </summary>
+        private void ClearValues()
+        {
+            HierarchyTree.Value = null;
+        }
 
         /// <summary>
         /// 購読破棄

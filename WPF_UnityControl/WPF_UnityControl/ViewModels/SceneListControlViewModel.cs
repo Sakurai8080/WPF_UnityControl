@@ -53,8 +53,19 @@ namespace WPF_UnityControl.ViewModels
                              { // シーン一覧から選択時のイベント発行
                                  _eventAggregator.GetEvent<SceneNameChangedEvent>().Publish(name);
                              }).AddTo(_disposables);
+
+            _eventAggregator.GetEvent<ClearAllValuesEvent>()
+                    .Subscribe(ClearValues).AddTo(_disposables); // 値クリアイベント購読
         }
         #endregion
+
+        /// <summary>
+        /// 値のクリア
+        /// </summary>
+        private void ClearValues()
+        {
+            SceneList.Value = null;
+        }
 
         /// <summary>
         /// 購読破棄
