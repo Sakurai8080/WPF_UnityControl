@@ -1,4 +1,5 @@
-﻿using Reactive.Bindings;
+﻿using System.IO;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
 using WPF_UnityControl.Events;
@@ -48,6 +49,11 @@ namespace WPF_UnityControl.ViewModels
         /// </summary>
         public ReactivePropertySlim<bool> OnConnected { get; set; } = new ReactivePropertySlim<bool>(false);
 
+        /// <summmary>
+        /// シーン実行停止ボタン
+        /// </summary>
+        public ReactiveCommandSlim ScenePlayStopCommand { get; } = new ReactiveCommandSlim();
+
         /// <summary> 
         /// Unity接続切り替えボタン
         /// </summary>
@@ -89,6 +95,11 @@ namespace WPF_UnityControl.ViewModels
                             { // 選択シーン変更のイベント登録
                                 _changeSceneName = name;
                             }).AddTo(_disposables);
+
+            ScenePlayStopCommand.Subscribe(_ =>
+                               {
+                                   File.WriteAllText("C:/UnityFile/PlayCommand.txt", "play");
+                               }).AddTo(_disposables);
 
             ConnectStateCommand.Subscribe(_ =>
                                { // 接続ボタン押下の購読
