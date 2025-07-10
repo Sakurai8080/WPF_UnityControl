@@ -1,10 +1,11 @@
 
 # ✅ 概要
-UnityをWPFから外部制御するデスクトップアプリケーション
-WPF側からUnityに対してデータや操作を送信し、
-リアルタイムにUnity操作をする仕組みを構築しています。
+UnityをWPFから外部制御するデスクトップアプリケーション。  
+WPF側からUnityに対してデータや操作を送信し、  
+リアルタイムにUnity操作をする仕組みを構築しています。  
+ 
 
-<img width="1197" height="718" alt="スクリーンショット 2025-07-11 023007" src="https://github.com/user-attachments/assets/1197df9c-8bd1-4c5c-a40a-bced43a0fca1" />
+<img width="1205" height="726" alt="スクリーンショット 2025-07-11 024213" src="https://github.com/user-attachments/assets/142b3d0f-0add-4881-823a-7041c73a9326" />
 
 
 ## ✅ 開発環境
@@ -14,11 +15,13 @@ WPF側からUnityに対してデータや操作を送信し、
 - .NET：8.0
 - Unity：6.0.37f1
 
+
 ## ✅ 主な使用技術
 
 1. Prism - MVVMアーキテクチャ支援
 2. ReacticeProperty - 状態管理・リアクティブUI
 3. MaterialDesing - モダンUI構築
+
 
 
 ## ✅ アプリケーション構成
@@ -37,8 +40,9 @@ WPF側からUnityに対してデータや操作を送信し、
 ##  ✅ アーキテクチャ
 ・MVVM
 
+
 ## ✅ プラットフォーム
-- WPFのため、Windows 専用アプリケーションとして構築
+- WPFのため、Windows 専用アプリケーション。
 
 
 
