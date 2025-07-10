@@ -112,6 +112,7 @@
                 Margin="0,15,0,0"
                 Background="#FF714141"
                 BorderThickness="0"
+                Command="{Binding AppExitCommand}"
                 Content="アプリ終了"
                 IsEnabled="True"
                 Style="{StaticResource ControlButton}" />

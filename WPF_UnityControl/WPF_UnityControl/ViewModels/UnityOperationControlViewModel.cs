@@ -4,6 +4,7 @@ using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
+using System.Windows;
 
 namespace WPF_UnityControl.ViewModels
 {
@@ -78,6 +79,11 @@ namespace WPF_UnityControl.ViewModels
         /// 全値のクリアボタン
         /// </summary>
         public ReactiveCommandSlim ValueClearCommand { get; } = new ReactiveCommandSlim();
+
+        /// <summmary>
+        /// 全値のクリアボタン
+        /// </summary>
+        public ReactiveCommandSlim AppExitCommand { get; } = new ReactiveCommandSlim();
         #endregion
         #region コンストラクタ
         /// <summary>
@@ -126,6 +132,15 @@ namespace WPF_UnityControl.ViewModels
                              { // 値のクリアイベント発行
                                  _eventAggregator.GetEvent<ClearAllValuesEvent>().Publish();
                              }).AddTo(_disposables);
+
+            AppExitCommand.Subscribe(_ =>
+                             { // アプリの終了
+                                  var res = MessageBox.Show("アプリケーションを終了しますか??", "aa", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                                 if (res== MessageBoxResult.OK)
+                                 {
+                                     App.Current.Shutdown();
+                                 }
+                             });
 
             _controller.OnCommandSending += (state) =>
             { // コマンド送信イベントの登録
