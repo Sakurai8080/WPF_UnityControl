@@ -135,12 +135,12 @@ namespace WPF_UnityControl.ViewModels
 
             AppExitCommand.Subscribe(_ =>
                              { // アプリの終了
-                                  var res = MessageBox.Show("アプリケーションを終了しますか??", "aa", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                                  var res = MessageBox.Show("アプリケーションを終了しますか??", "終了確認", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                                  if (res== MessageBoxResult.OK)
                                  {
                                      App.Current.Shutdown();
                                  }
-                             });
+                             }).AddTo(_disposables);
 
             _controller.OnCommandSending += (state) =>
             { // コマンド送信イベントの登録
