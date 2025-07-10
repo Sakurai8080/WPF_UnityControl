@@ -59,23 +59,9 @@
                 HorizontalAlignment="Center"
                 Source="/Resources/Logo.png" />
 
-            <Button Margin="0,20,0,0" Content="Unityシーン実行">
-                <Button.Style>
-                    <Style BasedOn="{StaticResource IndicatorButton}" TargetType="Button">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding OnConnected.Value}" Value="True">
-                                <Setter Property="IsEnabled" Value="False" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding OnConnected.Value}" Value="False">
-                                <Setter Property="IsEnabled" Value="True" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
             <Button
                 x:Name="btConnect"
-                Margin="0,15,0,0"
+                Margin="0,20,0,0"
                 BorderThickness="0"
                 Command="{Binding ConnectStateCommand}"
                 IsEnabled="True">
@@ -117,6 +103,11 @@
                 Command="{Binding ValueClearCommand}"
                 Content="データクリア"
                 Style="{StaticResource ControlButton}" />
+            <Button
+                Height="50"
+                Margin="0,15,0,0"
+                Command="{Binding ScenePlayStopCommand}"
+                Content="Unityモード切替" />
             <Button
                 Margin="0,15,0,0"
                 Background="#FF714141"

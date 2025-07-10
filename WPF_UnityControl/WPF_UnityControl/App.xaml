@@ -56,15 +56,16 @@
             </Style>
             <!--#endregion-->
             <!--  region ListViewItem  -->
-            <Style x:Key="BaseListViewItem" TargetType="ListViewItem">
-                <Setter Property="Background" Value="Transparent" />
+            <Style
+                x:Key="BaseListViewItem"
+                BasedOn="{StaticResource {x:Type ListViewItem}}"
+                TargetType="ListViewItem">
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="BorderBrush" Value="{StaticResource 300Blush}" />
+                        <Setter Property="Background" Value="#FF3C3C3C" />
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#4C708090" />
+                        <Setter Property="Background" Value="#FF3C3C3C" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
