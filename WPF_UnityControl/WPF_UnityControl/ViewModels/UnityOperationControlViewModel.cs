@@ -1,8 +1,10 @@
-﻿using Reactive.Bindings;
+﻿using System.IO;
+using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
 using WPF_UnityControl.Events;
 using WPF_UnityControl.Facades;
+using System.Windows;
 
 namespace WPF_UnityControl.ViewModels
 {
@@ -48,6 +50,11 @@ namespace WPF_UnityControl.ViewModels
         /// </summary>
         public ReactivePropertySlim<bool> OnConnected { get; set; } = new ReactivePropertySlim<bool>(false);
 
+        /// <summmary>
+        /// シーン実行停止ボタン
+        /// </summary>
+        public ReactiveCommandSlim ScenePlayStopCommand { get; } = new ReactiveCommandSlim();
+
         /// <summary> 
         /// Unity接続切り替えボタン
         /// </summary>
@@ -72,6 +79,11 @@ namespace WPF_UnityControl.ViewModels
         /// 全値のクリアボタン
         /// </summary>
         public ReactiveCommandSlim ValueClearCommand { get; } = new ReactiveCommandSlim();
+
+        /// <summmary>
+        /// 全値のクリアボタン
+        /// </summary>
+        public ReactiveCommandSlim AppExitCommand { get; } = new ReactiveCommandSlim();
         #endregion
         #region コンストラクタ
         /// <summary>
@@ -89,6 +101,11 @@ namespace WPF_UnityControl.ViewModels
                             { // 選択シーン変更のイベント登録
                                 _changeSceneName = name;
                             }).AddTo(_disposables);
+
+            ScenePlayStopCommand.Subscribe(_ =>
+                               {
+                                   File.WriteAllText("C:/UnityFile/PlayCommand.txt", "play");
+                               }).AddTo(_disposables);
 
             ConnectStateCommand.Subscribe(_ =>
                                { // 接続ボタン押下の購読
@@ -115,6 +132,15 @@ namespace WPF_UnityControl.ViewModels
                              { // 値のクリアイベント発行
                                  _eventAggregator.GetEvent<ClearAllValuesEvent>().Publish();
                              }).AddTo(_disposables);
+
+            AppExitCommand.Subscribe(_ =>
+                             { // アプリの終了
+                                  var res = MessageBox.Show("アプリケーションを終了しますか??", "aa", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                                 if (res== MessageBoxResult.OK)
+                                 {
+                                     App.Current.Shutdown();
+                                 }
+                             });
 
             _controller.OnCommandSending += (state) =>
             { // コマンド送信イベントの登録

@@ -1,4 +1,5 @@
 ﻿using WPF_UnityControl.Converter;
+using WPF_UnityControl.Events;
 using WPF_UnityControl.Models;
 using WPF_UnityControl.Unity;
 
@@ -11,6 +12,11 @@ namespace WPF_UnityControl.Facades
         /// Unityへの送信管理インスタンス 
         /// </summary>
         private readonly UnityCommandDispatcher _unityDsp;
+
+        /// <summary> 
+        /// イベント通信管理
+        /// </summary>
+        private IEventAggregator _eventAggregator;
         #endregion
         #region デリゲート
         /// <summary>
@@ -29,13 +35,19 @@ namespace WPF_UnityControl.Facades
         public Action<bool> OnCommandSending = (isSending) => { };
         #endregion
         #region コンストラクタ
-        public UnityController(UnityCommandDispatcher commandDispatcher)
+        public UnityController(UnityCommandDispatcher commandDispatcher, IEventAggregator eventAggregator)
         {
             _unityDsp = commandDispatcher;
+
+            _eventAggregator = eventAggregator;
 
             _unityDsp.TCPController.UnityConnectionChanged += (s, e) =>
             { // Unity接続メッセージイベント登録
                 OnUnityConnected?.Invoke(s, e);
+                if (!e.IsConnected)
+                { // 切断の場合、全値のクリアイベント発行
+                    _eventAggregator.GetEvent<ClearAllValuesEvent>().Publish();
+                }
             };
 
             _unityDsp.TCPController.OnResponseReceive += (msg) =>

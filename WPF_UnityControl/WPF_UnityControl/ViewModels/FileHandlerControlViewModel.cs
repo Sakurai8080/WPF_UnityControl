@@ -1,6 +1,7 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System.Reactive.Disposables;
+using System.Windows;
 using WPF_UnityControl.Models;
 using WPF_UnityControl.Service;
 
@@ -47,7 +48,9 @@ namespace WPF_UnityControl.ViewModels
             ObjectSaveCommand.Subscribe(_ =>
             { // 保存ボタン押下
                 var data = _objectData.CurrentGameObjectData.Value;
-                goExporter.SaveAsJson(data, $@"C:\UnityFile\{data.Name}Data.json");
+                var filePath  = $@"C:\UnityFile\{data.Name}Data.json";
+                goExporter.SaveAsJson(data, filePath);
+                MessageBox.Show($"ゲームオブジェクトデータを保存しました。\r\n{filePath}");
             }).AddTo(_disposables);
 
             ObjectLoadCommand.Subscribe(_ =>

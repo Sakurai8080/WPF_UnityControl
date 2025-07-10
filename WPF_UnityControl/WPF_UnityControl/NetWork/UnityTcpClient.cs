@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using WPF_UnityControl.Events;
 using WPF_UnityControl.Unity;
 
 namespace WPF_UnityControl.NetWork
@@ -76,7 +77,7 @@ namespace WPF_UnityControl.NetWork
             }
             catch (SocketException)
             {
-                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, "Unity接続 >>> 接続に失敗しました。Unityを実行してください。"));
+                UnityConnectionChanged?.Invoke(this, new UnityConnectionEventArgs(false, "Unity接続 >>> 接続に失敗しました。Unity起動とシーン実行を確認してください。"));
             }
             finally
             {
