@@ -8,9 +8,13 @@ WPF側からUnityに対してデータや操作を送信し、
 <img width="1205" height="726" alt="スクリーンショット 2025-07-11 024213" src="https://github.com/user-attachments/assets/142b3d0f-0add-4881-823a-7041c73a9326" />
 
 
+https://github.com/user-attachments/assets/3a1fae90-25ec-4120-9f68-0408699e9930
+
+
+
 ## ✅ 開発環境
 
-- OS：Windows 10 / 11
+- OS：Windows 10
 - IDE：Visual Studio 2022
 - .NET：8.0
 - Unity：6.0.37f1
@@ -42,7 +46,7 @@ WPF側からUnityに対してデータや操作を送信し、
 
 
 ## ✅ プラットフォーム
-- WPFのため、Windows 専用アプリケーション。
+- Windows 専用アプリケーション(WPFのため)
 
 
 
